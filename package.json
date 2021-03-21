@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch ./sass/main.scss:.css/style.css --style compressed"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/sophieSpacee/SophieGauthier_5_21032021/issues"
   },
-  "homepage": "https://github.com/sophieSpacee/SophieGauthier_5_21032021#readme"
+  "homepage": "https://github.com/sophieSpacee/SophieGauthier_5_21032021#readme",
+  "dependencies": {
+    "sass": "^1.32.8"
+  }
 }
