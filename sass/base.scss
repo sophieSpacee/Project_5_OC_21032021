@@ -15,19 +15,17 @@ header {
     height: 2.5em;
   }
   nav {
-  
     a {
       padding: 1.5em;
       font-family: "roboto";
       font-size: 1.1em;
-     
     }
-    
-    
   }
 }
-
-.btn-primary,  {
+main{
+  min-height: calc(100vh - 13em);
+}
+.btn-primary {
 background-color: $primary;
 border: none;
   &:hover {
@@ -47,26 +45,38 @@ h1 {
   object-fit: cover;
 }
 
-.price::after{
+.card-title{
+  font-family: 'roboto';
+  font-size: 1.5em;
+}
+
+.card-text{
+font-family: 'roboto';
+
+
+}
+
+.price{
+  color: $primary;
+  &::after{
     content: '€';
   }
+}
 
 .pointer {
   cursor: pointer;
+  
 }
-
-
-.margin-lg {
-  margin-top: 2em;
-  margin-bottom: 2em;
+.card-hover:hover {
+  box-shadow: 5px 5px 5px $grey;;
 }
 
 .row-title {
   font-family: "roboto";
 }
 
-footer {
+.footer {
   background-color: $purple;
-  height: 3em;
+  height: 5em;
   text-align: center;
 }

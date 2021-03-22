@@ -1,21 +1,23 @@
-// Fonction pour recuperer les objects teddies
 
-// const getTeddies = new Promise((resole, reject) => {
-//     const request = new XMLHttpRequest();
-//     request.onreadystatechange = function () {
-//       if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-//          var response = JSON.parse(this.responseText);
-//          console.log(response);
-//         request.open("GET", "http://localhost:3000/api/teddies");
-//         request.send();
-//       }
-//     };
-//   });
+// Promise qui récupère les données API et lance la fonction buildTeddies si tout se passe bien
+let getTeddies = fetch("http://localhost:3000/api/teddies", {
+  method: "GET",
+})
+  .then((response) => {
+    return response.json();
+  })
+  .then((jsonResponse) => {
+    jsonResponse.forEach((element) => {
+      buildTeddy(element);
+    });
+  })
+  .catch((error) => alert("Erreur: " + error));
+
+// Fonction qui construit une carte par produit sur la page d'accueil
 let buildTeddy = (element) => {
-  console.log(element._id);
   const teddy = document.createElement("div");
   teddy.onclick = () => {
-    window.location.href="../html/produit.html/"+element._id
+    window.location.href="/product.html?_id="+element._id
   }
   let teddyContainer = document.getElementById("teddy-container");
   teddyContainer.appendChild(teddy);
@@ -23,7 +25,7 @@ let buildTeddy = (element) => {
   
   const teddyCard = document.createElement("div");
   teddy.appendChild(teddyCard);
-  teddyCard.classList.add('card');
+  teddyCard.classList.add('card', 'card-hover');
 
   const teddyPic = document.createElement("img");
   teddyCard.appendChild(teddyPic);
@@ -43,22 +45,11 @@ let buildTeddy = (element) => {
   teddyCardBody.appendChild(teddyPrice);
   teddyPrice.innerHTML = element.price;
   teddyPrice.classList.add('card-text', 'price', 'text-right');
-
 };
 
-let teddiesList;
-let getTeddies = fetch("http://localhost:3000/api/teddies", {
-  method: "GET",
-})
-  .then((response) => {
-    return response.json();
-  })
-  .then((jsonResponse) => {
-    jsonResponse.forEach((element) => {
-      buildTeddy(element);
-    });
-  })
-  .catch((error) => alert("Erreur: " + error));
+
+
+// Ancienne version du code avec XMLHttpRequest
 
 // const request = new XMLHttpRequest();
 // request.onreadystatechange = function () {
