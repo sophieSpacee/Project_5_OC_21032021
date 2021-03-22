@@ -1,70 +1,72 @@
 @font-face {
-    font-family: 'roboto';
-    src: url(../fonts/Roboto-Medium.ttf);
+  font-family: "roboto";
+  src: url(../fonts/Roboto-Medium.ttf);
 }
 
 @font-face {
-    font-family: 'roboto-light';
-    src: url(../fonts/Roboto-Thin.ttf);
+  font-family: "roboto-light";
+  src: url(../fonts/Roboto-Thin.ttf);
 }
 
-body {
-    margin: 0;
-    position: relative;
-}
 header {
-    height: 4em;
-    display: flex;
-    position: relative;
-    background-color: $purple ;
-    padding-left: 1em;
-    padding-right: 1em;
-    box-shadow: 2px 2px 2px $grey;
-    img {
-        height: 4em;
+  background-color: $purple;
+  box-shadow: 2px 2px 2px $grey;
+  img {
+    height: 2.5em;
+  }
+  nav {
+  
+    a {
+      padding: 1.5em;
+      font-family: "roboto";
+      font-size: 1.1em;
+     
     }
-    nav {
-        display: flex;
-        position: absolute;
-        right: 0;
-        a  {
-            padding: 1.5em ;
-            color: black;
-            font-family: 'roboto';
-            font-size: 1em;
-            text-decoration: none;
-            vertical-align: middle;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    }
+    
+    
+  }
+}
+
+.btn-primary,  {
+background-color: $primary;
+border: none;
+  &:hover {
+    background-color: darken($color: $primary, $amount: 10);
+  }
 }
 
 h1 {
-    font-family: 'roboto';
-    font-size: 1.5em;
-    text-align: center;
- margin-top: 1em;
+  font-family: "roboto";
+  font-size: 1.5em;
+  text-align: center;
+  margin: 2em;
 }
 
+.img-center {
+  height: 16em;
+  object-fit: cover;
+}
+
+.price::after{
+    content: '€';
+  }
+
+.pointer {
+  cursor: pointer;
+}
+
+
 .margin-lg {
-margin-top: 2em;
-margin-bottom: 2em;
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 .row-title {
-    font-family: 'roboto';
-
+  font-family: "roboto";
 }
 
 footer {
-    background-color: $purple;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 3em;
+  background-color: $purple;
+  height: 3em;
+  text-align: center;
 }
-
-

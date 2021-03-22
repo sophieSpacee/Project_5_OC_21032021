@@ -1,54 +1,111 @@
 <html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="description"
-      content="Orinoco, entreprise de commerce en ligne spécialisée dans la vente de produits thématiques."
-    />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <meta name="robots" content="index, follow" />
-    <title>Orinoco</title>
-    <link rel="shortcut icon" type="image/png" href="/images/favicon.jpeg" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="/.css/style.css" />
-    <script src="./js/index.js"></script>
-  
-  </head>
-  <body>
-    <header>
-      <div>
-        <img src="/images/logo.jpeg" alt="Logo Orinoco" />
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="description"
+    content="Orinoco, entreprise de commerce en ligne spécialisée dans la vente de produits thématiques." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="index, follow" />
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.jpeg" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/.css/style.css" />
+  <script src="./js/index.js"></script>
+
+  <title>Orinoco</title>
+</head>
+
+<body>
+  <div class="bg-light">
+
+
+    <header class="container-fluid">
+      <div class="row">
+        <nav class="navbar col navbar-expand-lg navbar-light ">
+          <a href="index.html" class="navbar-brand">
+            <img src="/images/logo.jpeg" alt="Logo Orinoco" /></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div id="navbarContent" class="collapse navbar-collapse ">
+            <ul class="navbar-nav ml-auto">
+              <li class="navbar-item">
+                <a class="nav-link" href="./panier.html"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                </svg>
+                <span class="pl-2">Panier</span>
+                   </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
-      <nav>
-        <a href="./panier.html"> <span>Panier</span></a>
-      </nav>
+
+
+
     </header>
     <main>
-      <h1>Nos articles disponibles</h1>
-      <div class="container margin-lg" id='teddy-container'>
-        <div class="row row-title" >
-          <div class="col-sm text-center" >ID</div>
-          <div class="col-sm text-center">Nom</div>
-          <div class="col-sm text-center">Prix</div>
-          <div class="col-sm text-center">Description</div>
-          <div class="col-sm text-center">Image</div>
+      <div>
+        <h1>Nos articles disponibles</h1>
+      </div>
+
+      <div class="container">
+        <div class="row" id="teddy-container">
+          <!-- <div class="col-12 col-lg-4 col-sm-6">
+            <div class="card">
+              <img src="./images/teddy_2.jpg" alt="" class="card-image-top">
+              <div class="card-body">
+                
+                <h2 class="card-title"> Nounours 1</h2>
+                <p class="card-text">Detail du nounours</p>
+                <button class="btn btn-primary">Ajouter au panier</button>
+
+              </div>
+            </div>
+          </div> -->
         </div>
       </div>
-      <div id="myDiv">
-          <script>
-              
-          </script>
-      </div>
+
+
+
+    </div>
+
     </main>
 
-    <footer>
-      <span class="margin-lg">Contact</span>
+    <footer class="container-fluid">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          Contact
+        </li>
+        <li class="list-inline-item">
+          &middot;
+        </li>
+        <li class="list-inline-item">
+          A propos
+        </li>
+        <li class="list-inline-item">
+          &middot;
+        </li>
+        <li class="list-inline-item">
+          Conditions d'utilisation
+        </li>
+      </ul>
     </footer>
-  </body>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+    integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
+    crossorigin="anonymous"></script>
+  <!-- <script src="./dist/polyfill.bundle.js"></script>
+  <script src="./dist/app.bundle.js"></script> -->
+</body>
+
 </html>

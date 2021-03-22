@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch ./sass/main.scss:.css/style.css --style compressed"
+    "sass": "sass --watch ./sass/main.scss:.css/style.css --style compressed",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,17 @@
   },
   "homepage": "https://github.com/sophieSpacee/SophieGauthier_5_21032021#readme",
   "dependencies": {
-    "sass": "^1.32.8"
+    "bootstrap-icons": "^1.4.0",
+    "eslint": "^7.22.0",
+    "sass": "^1.32.8",
+    "webpack": "^5.27.1",
+    "webpack-cli": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
+    "prettier": "^2.2.1"
   }
 }
