@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "roboto-light";
-  src: url(../fonts/Roboto-Thin.ttf);
+  src: url(../fonts/Roboto-Light.ttf);
 }
 
 header {
@@ -17,16 +17,18 @@ header {
   nav {
     a {
       padding: 1.5em;
-      font-family: "roboto";
       font-size: 1.1em;
     }
   }
 }
+
 main{
   min-height: calc(100vh - 13em);
 }
+
 .btn-primary {
 background-color: $primary;
+font-family: 'roboto';
 border: none;
   &:hover {
     background-color: darken($color: $primary, $amount: 10);
@@ -34,26 +36,9 @@ border: none;
 }
 
 h1 {
-  font-family: "roboto";
   font-size: 1.5em;
   text-align: center;
   margin: 2em;
-}
-
-.img-center {
-  height: 16em;
-  object-fit: cover;
-}
-
-.card-title{
-  font-family: 'roboto';
-  font-size: 1.5em;
-}
-
-.card-text{
-font-family: 'roboto';
-
-
 }
 
 .price{
@@ -65,14 +50,6 @@ font-family: 'roboto';
 
 .pointer {
   cursor: pointer;
-  
-}
-.card-hover:hover {
-  box-shadow: 5px 5px 5px $grey;;
-}
-
-.row-title {
-  font-family: "roboto";
 }
 
 .footer {

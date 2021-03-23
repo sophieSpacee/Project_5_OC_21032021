@@ -21,7 +21,7 @@ let buildTeddy = (element) => {
   }
   let teddyContainer = document.getElementById("teddy-container");
   teddyContainer.appendChild(teddy);
-  teddy.classList.add("col-12", "col-lg-4",  "col-sm-6", "mt-5", "mb-5", "pointer");
+  teddy.classList.add("col-12", "col-lg-4",  "col-sm-6", "mt-3", "mb-3", "pointer");
   
   const teddyCard = document.createElement("div");
   teddy.appendChild(teddyCard);

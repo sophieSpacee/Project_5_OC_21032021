@@ -7,11 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="robots" content="index, follow" />
     <link rel="shortcut icon" type="image/png" href="/images/favicon.jpeg" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
     <link rel="stylesheet" href="/.css/style.css" />
     <script src="./js/product.js"></script>
-
     <title>Orinoco</title>
 </head>
 
@@ -47,7 +44,7 @@
         </header>
         <main>
 
-            <h1 id="teddy-name2">Nom du nounours</h1>
+            <h1 class="mt-5 mb-5" id="teddy-name2">Nom du nounours</h1>
 
 
             <div class="container">
@@ -55,8 +52,8 @@
                     <div class="col-12 col-md-6" >
                         <img src="" alt="" class="img-fluid" id="teddypic-container">
                     </div>
-                    <div class="col-12 col-md-6" >
-                        <p id="teddyDetails">
+                    <div class="col-12 col-md-6">
+                        <p id="teddyDetails" class="pt-3">
                             description
                         </p>
                         <p class="price" id="teddy-price">prix</p>
@@ -68,8 +65,12 @@
                                     </select>
                             </div>
                         </form>
-                        <button class="btn btn-primary">Ajouter au panier</button>
-
+                        <button name="addToCart" class="btn btn-primary mb-4" id="add-cart" >Ajouter au panier</button>
+                        <div  role="alert" id="alert-success"></div>
+                        <!-- <div class="alert alert-success mt-3" role="alert">
+                            Félicitations ! Vous avez ajouté cet ours à votre panier !
+                         </div> -->
+                            
                     </div>
 
                 </div>

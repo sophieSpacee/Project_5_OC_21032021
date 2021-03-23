@@ -8,9 +8,9 @@
   <meta name="robots" content="index, follow" />
   <link rel="shortcut icon" type="image/png" href="/images/favicon.jpeg" />
   <link rel="stylesheet" href="/.css/style.css" />
-  <script src="./js/index.js"></script>
+  <script src="./js/panier.js"></script>
 
-  <title>Orinoco</title>
+  <title>Panier</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
           </button>
           <div id="navbarContent" class="collapse navbar-collapse ">
             <ul class="navbar-nav ml-auto">
-              <li class="navbar-item">
+              <li class="navbar-item active">
                 <a class="nav-link" href="./panier.html"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                     fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
                     <path
@@ -46,26 +46,78 @@
     </header>
     <main>
       <div>
-        <h1 class="mt-5 pb-3">Nos articles disponibles</h1>
+        <h1 class="mt-5 ">Mon panier</h1>
+      </div>
+
+      <div class="container" id="products-container">
+        <!-- <div class="row bg-white">
+
+          <div class="col-4">
+            <div class="card">
+              <img src="./images/teddy_2.jpg" alt="" class="card-image-top">
+            </div>
+          </div>
+          <div class="col-4 my-auto">
+
+            <h2 class="card-title"> Name</h2>
+            <p class="card-text">Couleur choisie</p>
+            <p class="card-text">Quantité</p>
+          </div> -->
+
+
+
+
+<!-- 
+          <div class="col-4 my-auto">
+            <p class="align-middle my-auto text-right mr-2">Price</p>
+          </div>
+        </div> -->
       </div>
 
       <div class="container">
-        <div class="row" id="teddy-container">
-          <!-- <div class="col-12 col-lg-4 col-sm-6">
-            <div class="card">
-              <img src="./images/teddy_2.jpg" alt="" class="card-image-top">
-              <div class="card-body">
-                
-                <h2 class="card-title"> Nounours 1</h2>
-                <p class="card-text">Detail du nounours</p>
-                <button class="btn btn-primary">Ajouter au panier</button>
+<div class="row bg-white">
+<div class="col text-right">
+  <p>
+    Total : 
+    <span id="total-price" class="price"></span>
 
-              </div>
-            </div>
-          </div> -->
-        </div>
+  </p>
+</div>
+</div>
       </div>
 
+      <!-- Formulaire de commande  -->
+      <div class="container mt-5 pb-5">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6 align-self-center">
+            <form action="commander">
+              <div class="form-group">
+                <label for="firstName">Prénom</label>
+                <input type="text" class="form-control" id="firstName" placeholder="Prémom" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Nom</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Nom" required>
+              </div>
+              <div class="form-group">
+                <label for="address">Adresse</label>
+                <input type="text" class="form-control" id="address" placeholder="Adresse" required>
+              </div>
+              <div class="form-group">
+                <label for="city">Ville</label>
+                <input type="text" class="form-control" id="city" placeholder="Ville" required>
+              </div>
+              <div class="form-group">
+                <label for="mail">Adresse mail</label>
+                <input type="email" class="form-control" id="mail" placeholder="Email" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Commander</button>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
 
 
   </div>
@@ -74,27 +126,27 @@
 
   <footer class="footer">
     <div class="container-fluid">
-      <ul class="list-inline pt-3 ">
-        <li class="list-inline-item">
-          Contact
-        </li>
-        <li class="list-inline-item">
-          &middot;
-        </li>
-        <li class="list-inline-item">
-          A propos
-        </li>
-        <li class="list-inline-item">
-          &middot;
-        </li>
-        <li class="list-inline-item">
-          Conditions d'utilisation
-        </li>
-      </ul>
+        <ul class="list-inline pt-3 ">
+            <li class="list-inline-item">
+                Contact
+            </li>
+            <li class="list-inline-item">
+                &middot;
+            </li>
+            <li class="list-inline-item">
+                A propos
+            </li>
+            <li class="list-inline-item">
+                &middot;
+            </li>
+            <li class="list-inline-item">
+                Conditions d'utilisation
+            </li>
+        </ul>
     </div>
     </div>
 
-  </footer>
+</footer>
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
