@@ -43,6 +43,7 @@ h1 {
 
 .price{
   color: $primary;
+  font-family: 'roboto';
   &::after{
     content: '€';
   }

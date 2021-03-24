@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="image/png" href="/images/favicon.jpeg" />
     <link rel="stylesheet" href="/.css/style.css" />
     <script src="./js/product.js"></script>
-    <title>Orinoco</title>
+    <title>Orinoco</title> 
 </head>
 
 <body>
@@ -57,19 +57,18 @@
                             description
                         </p>
                         <p class="price" id="teddy-price">prix</p>
-                        <form>
+                        <form method="POST" >
                             <div class="form-group">
                                 <label for="color">Choix de la couleur:</label>    
-                                <select name="color" id="teddy-color">
+                                <select name="color" id="teddy-color" class="form-select form-control">
                                         
-                                    </select>
+                                </select>
+                              
                             </div>
                         </form>
-                        <button name="addToCart" class="btn btn-primary mb-4" id="add-cart" >Ajouter au panier</button>
+                        <button name="addToCart" class="btn btn-primary mb-4 pull-right" id="add-cart" >Ajouter au panier</button>
                         <div  role="alert" id="alert-success"></div>
-                        <!-- <div class="alert alert-success mt-3" role="alert">
-                            Félicitations ! Vous avez ajouté cet ours à votre panier !
-                         </div> -->
+                        
                             
                     </div>
 
