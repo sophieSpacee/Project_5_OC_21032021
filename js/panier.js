@@ -74,10 +74,10 @@ window.onload = () => {
 
   //Affichage du prix total dans le panier
   const showTotalPrice = () => {
-  let totalPriceContainer = document.getElementById("total-price");
+  const totalPriceContainer = document.getElementById("total-price");
   totalPriceContainer.innerHTML = totalPriceCalculation(productList);
   }
-  
+
   showTotalPrice();
 
 
@@ -168,25 +168,17 @@ window.onload = () => {
         .then((jsonResponse) => {
           console.log("Reponse JSON si la requete se passe bien", jsonResponse);
           apiResponse = jsonResponse;
-          sendOrderInfoToLocalStorage(apiResponse);
+          let orderId = apiResponse.orderId;
+          localStorage.setItem("orderId", JSON.stringify(orderId));
+          let totalAmount = totalPriceCalculation(productList);
+          localStorage.setItem("totalAmount", JSON.stringify(totalAmount));
+          window.location.href = "../confirmation.html";
         })
         .catch((error) => console.error(error));
-
-       
     }
   };
 
-  // Envoyer l'order ID et le montant total vers le local storage
-  const sendOrderInfoToLocalStorage = (apiResponse) => {
-    let orderId = apiResponse.orderId;
-    localStorage.setItem("orderId", JSON.stringify(orderId));
-    let totalAmount = totalPriceCalculation(productList);
-    localStorage.setItem("totalAmount", JSON.stringify(totalAmount));
-  };
-  // verification
-  console.log(localStorage);
-
-  // Lancer la fonction sendOrderToServer quand on clique sur le bouton commander
-
+// Lancer la fonction sendOrderToServer quand on clique sur le bouton commander
   confirmationButton.addEventListener("click", sendOrderToServer);
+  
 };

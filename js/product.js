@@ -8,7 +8,7 @@ window.onload = () => {
 
   // Promise qui récupère les données API du teddy et lance la fonction showTeddyDetail si tout se passe bien
   let teddy = "";
-  //je ne sais pas a quoi ca sert de declarer teddy
+
   let getTeddy = fetch("http://localhost:3000/api/teddies/" + product_id, {
     method: "GET",
   })
@@ -18,13 +18,15 @@ window.onload = () => {
     .then((element) => {
       showTeddyDetail(element);
       teddy = element;
+      const colorList = document.getElementsByTagName("option");
+      const firstColor = colorList[0].innerHTML;
+      teddy.chosenColor = firstColor;
       console.log(teddy);
-      //je ne sais pas a quoi ca sert de declarer teddy
+      console.log(teddy);
     })
     .catch((error) => alert("Erreur: " + error));
 
-
-    console.log(teddy);
+  console.log(teddy);
 
   // Afficher le détail du produit sur la page product.html
   let showTeddyDetail = (element) => {
@@ -53,6 +55,7 @@ window.onload = () => {
       teddyColor.appendChild(option);
       option.innerHTML = color;
     });
+
     getChosenColor();
   };
 
@@ -60,16 +63,15 @@ window.onload = () => {
   let getChosenColor = (element) => {
     let teddyColor = document.getElementById("teddy-color");
     teddyColor.addEventListener("change", (event) => {
-      let chosenColor = event.target.value;
-      teddy.chosenColor = chosenColor;
-      console.log(chosenColor);
-      console.log( teddy)
-      return chosenColor;
-      
+      let clickedColor = event.target.value;
+      teddy.chosenColor = clickedColor;
+      console.log(clickedColor);
+      console.log(teddy);
+      return clickedColor;
     });
   };
 
-console.log(teddy)
+  console.log(teddy);
   // Fonction qui ajoute le teddy au panier
   var addTeddyToCart = () => {
     var existing = localStorage.getItem("teddy");

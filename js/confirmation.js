@@ -19,5 +19,11 @@ window.onload = () => {
 
   showTotalAmount();
 
-  localStorage.clear();
+
 };
+
+window.onbeforeunload = closingCode;
+function closingCode(){
+  localStorage.clear();
+   return null;
+}

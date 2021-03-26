@@ -12,5 +12,5 @@
 ☐ faire marcher bundle
 ✔ vider automatiquement le panier @done (3/26/2021, 11:42:40 AM)
 ☐ mettre const plutot que let quand on reasigne pas
-☐ empecher le changement de page si le panier est vide et mettre une alerte
+✔ empecher le changement de page si le panier est vide et mettre une alerte @done (3/26/2021, 3:55:21 PM)
 ☐ sortir la fonction qui construit productIdList de la fonction showcart
