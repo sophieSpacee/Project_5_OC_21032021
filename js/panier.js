@@ -58,7 +58,7 @@ window.onload = () => {
   };
 
   showCartItems();
-  console.log('Liste des produits qui seront envoyes au serveur', products)
+  console.log("Liste des produits qui seront envoyes au serveur", products);
 
   //Calcul du prix total
   const totalPriceCalculation = (productList) => {
@@ -74,12 +74,11 @@ window.onload = () => {
 
   //Affichage du prix total dans le panier
   const showTotalPrice = () => {
-  const totalPriceContainer = document.getElementById("total-price");
-  totalPriceContainer.innerHTML = totalPriceCalculation(productList);
-  }
+    const totalPriceContainer = document.getElementById("total-price");
+    totalPriceContainer.innerHTML = totalPriceCalculation(productList);
+  };
 
   showTotalPrice();
-
 
   // Construction de l'objet contact a envoyer au serveur
   let nom;
@@ -119,16 +118,15 @@ window.onload = () => {
   });
 
   const getContactInfo = () => {
+    const mailFormat = /[A-Za-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}/;
     if (
-      prenom === undefined ||
-      nom === undefined ||
-      addresse === undefined ||
-      ville === undefined ||
-      mail === undefined
+      prenom !== undefined &&
+      nom !== undefined &&
+      addresse !== undefined &&
+      ville !== undefined &&
+      mail !== undefined &&
+      mail.match(mailFormat)
     ) {
-      console.log("Formulaire non complet");
-      return false;
-    } else {
       let contactInfo = {
         firstName: prenom,
         lastName: nom,
@@ -136,9 +134,13 @@ window.onload = () => {
         city: ville,
         email: mail,
       };
-
       console.log("Objet Contact dans la fonction getContactInfo", contactInfo);
       return contactInfo;
+    } else {
+      
+
+      console.log("Formulaire non complet");
+      return false;
     }
   };
 
@@ -154,7 +156,7 @@ window.onload = () => {
     };
     console.log(jsonBody);
     if (!contact) {
-      console.error("erreur");
+      console.error("error");
     } else {
       console.log("final jsonbody", jsonBody);
       return fetch("http://localhost:3000/api/teddies/order", {
@@ -172,13 +174,12 @@ window.onload = () => {
           localStorage.setItem("orderId", JSON.stringify(orderId));
           let totalAmount = totalPriceCalculation(productList);
           localStorage.setItem("totalAmount", JSON.stringify(totalAmount));
-          window.location.href = "../confirmation.html";
+          // window.location.href = "../confirmation.html";
         })
         .catch((error) => console.error(error));
     }
   };
 
-// Lancer la fonction sendOrderToServer quand on clique sur le bouton commander
+  // Lancer la fonction sendOrderToServer quand on clique sur le bouton commander
   confirmationButton.addEventListener("click", sendOrderToServer);
-  
 };
