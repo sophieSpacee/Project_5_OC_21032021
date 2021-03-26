@@ -9,14 +9,11 @@
   <link rel="shortcut icon" type="image/png" href="/images/favicon.jpeg" />
   <link rel="stylesheet" href="/.css/style.css" />
   <script src="./js/panier.js"></script>
-
   <title>Panier</title>
 </head>
 
 <body>
   <div class="bg-light">
-
-
     <header class="container-fluid">
       <div class="row">
         <nav class="navbar col navbar-expand-md navbar-light ">
@@ -40,57 +37,27 @@
           </div>
         </nav>
       </div>
-
-
-
     </header>
     <main>
       <div>
         <h1 class="mt-5 ">Mon panier</h1>
       </div>
-
       <div class="container" id="products-container">
-        <!-- <div class="row bg-white">
-
-          <div class="col-4">
-            <div class="card">
-              <img src="./images/teddy_2.jpg" alt="" class="card-image-top">
-            </div>
-          </div>
-          <div class="col-4 my-auto">
-
-            <h2 class="card-title"> Name</h2>
-            <p class="card-text">Couleur choisie</p>
-            <p class="card-text">Quantité</p>
-          </div> -->
-
-
-
-
-<!-- 
-          <div class="col-4 my-auto">
-            <p class="align-middle my-auto text-right mr-2">Price</p>
-          </div>
-        </div> -->
       </div>
-
       <div class="container">
-<div class="row bg-white">
-<div class="col text-right">
-  <p>
-    Total : 
-    <span id="total-price" class="price"></span>
-
-  </p>
-</div>
-</div>
+        <div class="row bg-white">
+          <div class="col text-right">
+            <p>
+              Total :
+              <span id="total-price" class="price"> 0 </span>
+            </p>
+          </div>
+        </div>
       </div>
-
-      <!-- Formulaire de commande  -->
       <div class="container mt-5 pb-5">
         <div class="row justify-content-center">
           <div class="col-12 col-md-8 col-lg-6 align-self-center">
-            <form action="./confirmation.html">
+            <form action="./confirmation.html" >
               <div class="form-group">
                 <label for="firstName">Prénom</label>
                 <input type="text" class="form-control" id="firstName" placeholder="Prémom" required>
@@ -111,45 +78,35 @@
                 <label for="mail">Adresse mail</label>
                 <input type="email" class="form-control" id="mail" placeholder="Email" required>
               </div>
-              <button  class="btn btn-primary" id="confirmation-button">Commander</button>
+              <button class="btn btn-primary" id="confirmation-button" >Commander</button>
             </form>
           </div>
-
-
         </div>
       </div>
-<p id="identifiant"></p>
-
   </div>
-
- 
-
   </main>
-
   <footer class="footer">
     <div class="container-fluid">
-        <ul class="list-inline pt-3 ">
-            <li class="list-inline-item">
-                Contact
-            </li>
-            <li class="list-inline-item">
-                &middot;
-            </li>
-            <li class="list-inline-item">
-                A propos
-            </li>
-            <li class="list-inline-item">
-                &middot;
-            </li>
-            <li class="list-inline-item">
-                Conditions d'utilisation
-            </li>
-        </ul>
+      <ul class="list-inline pt-3 ">
+        <li class="list-inline-item">
+          Contact
+        </li>
+        <li class="list-inline-item">
+          &middot;
+        </li>
+        <li class="list-inline-item">
+          A propos
+        </li>
+        <li class="list-inline-item">
+          &middot;
+        </li>
+        <li class="list-inline-item">
+          Conditions d'utilisation
+        </li>
+      </ul>
     </div>
     </div>
-
-</footer>
-
+  </footer>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>

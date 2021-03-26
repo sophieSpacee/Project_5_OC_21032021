@@ -1,0 +1,16 @@
+### Projet 5 |
+
+
+✔ validation des données du formulaire (type suffisant ?) @done (3/26/2021, 10:05:54 AM)
+✔ Les inputs des utilisateurs doivent être validés avant l’envoi à l’API. (await .then before .catch ?) @done (3/26/2021, 11:43:10 AM)
+☐ Planifiez une suite de tests unitaires pour couvrir au minimum 80 % de la base de code pour le front-end. Vous devrez formaliser un plan pour atteindre ce résultat, sans obligation d’écrire ces tests Expliquez quelles lignes seront testées, et quels “test cases” seront envisagés.
+☐ Le code source devra être indenté et utiliser des commentaires. Il devra également utiliser des fonctions globales. (fonctions a mettre partout partout ?)
+✔ Concernant l’API, des promesses devront être utilisées pour éviter les rappels. (fetch ok ?) @done (3/26/2021, 11:43:25 AM)
+✔ Pour les routes POST, l’objet contact envoyé au serveur doit contenir les champs firstName, lastName, address, city et email. Le tableau des produits envoyé au backend doit être un array de strings product_id. Les types de ces champs et leur présence doivent être validés avant l’envoi des données au serveur. (valider les types array et object avant envoi ?) @done (3/26/2021, 11:43:42 AM)
+☐ verifier W3C HTML
+☐ verifier W3C css
+☐ faire marcher bundle
+✔ vider automatiquement le panier @done (3/26/2021, 11:42:40 AM)
+☐ mettre const plutot que let quand on reasigne pas
+☐ empecher le changement de page si le panier est vide et mettre une alerte
+☐ sortir la fonction qui construit productIdList de la fonction showcart

@@ -2,7 +2,7 @@ window.onload = () => {
   // Fonction qui fait apparaitre les elements du panier sur la page a partir du local storage
   let productList = JSON.parse(localStorage.getItem("teddy"));
   let products = [];
-  let showCartItems = () => {
+  const showCartItems = () => {
     for (let item of productList) {
       let productLine = document.createElement("div");
 
@@ -58,15 +58,10 @@ window.onload = () => {
   };
 
   showCartItems();
-
-  // verifications
-  console.log(
-    "liste des ID dans la liste qui sera envoyee au serveur : ",
-    products
-  );
+  console.log('Liste des produits qui seront envoyes au serveur', products)
 
   //Calcul du prix total
-  let totalPriceCalculation = (productList) => {
+  const totalPriceCalculation = (productList) => {
     console.log(productList);
     let totalPrice = 0;
     for (let item of productList) {
@@ -78,8 +73,13 @@ window.onload = () => {
   };
 
   //Affichage du prix total dans le panier
+  const showTotalPrice = () => {
   let totalPriceContainer = document.getElementById("total-price");
   totalPriceContainer.innerHTML = totalPriceCalculation(productList);
+  }
+  
+  showTotalPrice();
+
 
   // Construction de l'objet contact a envoyer au serveur
   let nom;
@@ -118,47 +118,66 @@ window.onload = () => {
     console.log(mail);
   });
 
-  let getContactInfo = () => {
-    let contactInfo = {
-      firstName: prenom,
-      lastName: nom,
-      address: addresse,
-      city: ville,
-      email: mail,
-    };
-    
-    console.log("Objet Contact dans la fonction getContactInfo", contactInfo);
-    return contactInfo;
+  const getContactInfo = () => {
+    if (
+      prenom === undefined ||
+      nom === undefined ||
+      addresse === undefined ||
+      ville === undefined ||
+      mail === undefined
+    ) {
+      console.log("Formulaire non complet");
+      return false;
+    } else {
+      let contactInfo = {
+        firstName: prenom,
+        lastName: nom,
+        address: addresse,
+        city: ville,
+        email: mail,
+      };
+
+      console.log("Objet Contact dans la fonction getContactInfo", contactInfo);
+      return contactInfo;
+    }
   };
 
   // Envoyer les donnees au serveur avec Promise
   let apiResponse;
+  let confirmationButton = document.getElementById("confirmation-button");
+
   let sendOrderToServer = function () {
     let contact = getContactInfo();
     let jsonBody = {
       contact,
       products,
     };
-    console.log("final jsonbody", jsonBody);
-    fetch("http://localhost:3000/api/teddies/order", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify(jsonBody),
-    })
-      .then((response) => {
-        return response.json();
+    console.log(jsonBody);
+    if (!contact) {
+      console.error("erreur");
+    } else {
+      console.log("final jsonbody", jsonBody);
+      return fetch("http://localhost:3000/api/teddies/order", {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify(jsonBody),
       })
-      .then((jsonResponse) => {
-        console.log("Reponse JSON si la requete se passe bien", jsonResponse);
-        apiResponse = jsonResponse;
-        sendOrderInfoToLocalStorage(apiResponse);
-        showOrderId(apiResponse);
-      })
-      .catch((error) => alert("Erreur: " + error));
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonResponse) => {
+          console.log("Reponse JSON si la requete se passe bien", jsonResponse);
+          apiResponse = jsonResponse;
+          sendOrderInfoToLocalStorage(apiResponse);
+        })
+        .catch((error) => console.error(error));
+
+       
+    }
   };
 
   // Envoyer l'order ID et le montant total vers le local storage
-  let sendOrderInfoToLocalStorage = (apiResponse) => {
+  const sendOrderInfoToLocalStorage = (apiResponse) => {
     let orderId = apiResponse.orderId;
     localStorage.setItem("orderId", JSON.stringify(orderId));
     let totalAmount = totalPriceCalculation(productList);
@@ -166,33 +185,8 @@ window.onload = () => {
   };
   // verification
   console.log(localStorage);
- 
-
 
   // Lancer la fonction sendOrderToServer quand on clique sur le bouton commander
-  let confirmationButton = document.getElementById("confirmation-button");
+
   confirmationButton.addEventListener("click", sendOrderToServer);
-
-  // Fonction test pour faire apparaitre l'order ID sur la page panier -
-  // cette fonction sera supprimee avant soumission du projet
-  let showOrderId = (apiResponse) => {
-    let orderId = apiResponse.orderId;
-    let orderIdContainer = document.getElementById("identifiant");
-    orderIdContainer.innerHTML = orderId;
-  };
 };
-
-//Envoyer les donnees au serveur avec XMLHttp (ca marche pas)
-
-//   let  request = new XMLHttpRequest();
-//   request.onreadystatechange = function () {
-//   if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-//     let response = JSON.parse(this.responseText)
-//     console.log(response)
-//   } else {
-//     console.log('error')
-//   }
-// };
-// request.open("POST", "http://localhost:3000/api/teddies/order");
-// request.setRequestHeader("Content-Type", "application/json");
-// request.send(JSON.stringify(jsonBody));

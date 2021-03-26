@@ -18,4 +18,6 @@ window.onload = () => {
   };
 
   showTotalAmount();
+
+  localStorage.clear();
 };
