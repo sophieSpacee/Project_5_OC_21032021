@@ -6,29 +6,26 @@
         content="Orinoco, entreprise de commerce en ligne spécialisée dans la vente de produits thématiques." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="robots" content="index, follow" />
-    <link rel="shortcut icon" type="image/png" href="/images/favicon.jpeg" />
-    <link rel="stylesheet" href="/.css/style.css" />
-    <script src="./js/confirmation.js"></script>
-
-    <title>Confirmation</title>
+    <link rel="shortcut icon" type="image/png" href="../../images/logo.jpeg" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <script src="../product/product.js"></script>
+    <title>Orinoco</title> 
 </head>
 
 <body>
     <div class="bg-light">
-
-
         <header class="container-fluid">
             <div class="row">
                 <nav class="navbar col navbar-expand-md navbar-light ">
-                    <a href="index.html" class="navbar-brand">
-                        <img src="/images/logo.jpeg" alt="Logo Orinoco" /></a>
+                    <a href="../../index.html" class="navbar-brand">
+                        <img src="../../images/logo.jpeg" alt="Logo Orinoco" /></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div id="navbarContent" class="collapse navbar-collapse ">
                         <ul class="navbar-nav ml-auto">
                             <li class="navbar-item">
-                                <a class="nav-link" href="./panier.html"> <svg xmlns="http://www.w3.org/2000/svg"
+                                <a class="nav-link" href="../panier/panier.html"> <svg xmlns="http://www.w3.org/2000/svg"
                                         width="30" height="30" fill="currentColor" class="bi bi-cart4"
                                         viewBox="0 0 16 16">
                                         <path
@@ -46,28 +43,36 @@
 
         </header>
         <main>
-            <div>
-                <h1 class="mt-5 pb-3">Confirmation de commande</h1>
-            </div>
+
+            <h1 class="mt-5 mb-5" id="teddy-name2">Nom du nounours</h1>
+
 
             <div class="container">
-                <div class="row ">
-                    <div class="col text-center">
-                        <p class="pb-4">
-                            Merci de votre confiance. Votre commande a bien été enregistrée.
+                <div class="row">
+                    <div class="col-12 col-md-6" >
+                        <img src="" alt="" class="img-fluid" id="teddypic-container">
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p id="teddyDetails" class="pt-3">
+                            description
                         </p>
-                        <p class="pb-4">
-                            Montant total de votre commande :
-                            <span id="total-price-confirmation" class="price"> 00</span>
-                        </p>
-                        <p>
-                            Identifiant de votre commande :
-                            <span id="identifier" class="roboto"> </span>
-                        </p>
+                        <p class="price" id="teddy-price">prix</p>
+                        <form method="POST" >
+                            <div class="form-group">
+                                <label for="color">Choix de la couleur:</label>    
+                                <select name="color" id="teddy-color" class="form-select form-control">
+                                        
+                                </select>
+                              
+                            </div>
+                        </form>
+                        <button name="addToCart" class="btn btn-primary mb-4 pull-right" id="add-cart" >Ajouter au panier</button>
+                        <div  role="alert" id="alert-success"></div>
+                        
+                            
                     </div>
 
                 </div>
-
             </div>
 
 

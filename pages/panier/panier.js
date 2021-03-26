@@ -1,64 +1,7 @@
 window.onload = () => {
   // Fonction qui fait apparaitre les elements du panier sur la page a partir du local storage
+  // let products = [];
   let productList = JSON.parse(localStorage.getItem("teddy"));
-  let products = [];
-  const showCartItems = () => {
-    for (let item of productList) {
-      let productLine = document.createElement("div");
-
-      let productLineContainer = document.getElementById("products-container");
-      productLineContainer.appendChild(productLine);
-      productLine.classList.add("row", "bg-white", "my-3");
-
-      let productCol1 = document.createElement("div");
-      productCol1.classList.add("col-4");
-      productLine.appendChild(productCol1);
-
-      let productCard = document.createElement("div");
-      productCard.classList.add("card");
-      productCol1.appendChild(productCard);
-
-      let teddyImage = document.createElement("img");
-      teddyImage.classList.add("card-image-top");
-      productCard.appendChild(teddyImage);
-      teddyImage.setAttribute("src", item.imageUrl);
-
-      let productCol2 = document.createElement("div");
-      productCol2.classList.add("col-4", "my-auto");
-      productLine.appendChild(productCol2);
-
-      let productName = document.createElement("h2");
-      productName.classList.add("card-title");
-      productCol2.appendChild(productName);
-      productName.innerHTML = item.name;
-
-      let productColor = document.createElement("p");
-      productColor.classList.add("card-text");
-      productCol2.appendChild(productColor);
-      productColor.innerHTML = item.chosenColor;
-
-      let productCol3 = document.createElement("div");
-      productCol3.classList.add("col-4", "my-auto");
-      productLine.appendChild(productCol3);
-
-      let productPrice = document.createElement("p");
-      productPrice.classList.add(
-        "align-middle",
-        "my-auto",
-        "text-right",
-        "mr-2",
-        "price"
-      );
-      productCol3.appendChild(productPrice);
-      productPrice.innerHTML = item.price;
-
-      // Construction de la liste des ID a envoyer au serveur
-      products.push(item._id);
-    }
-  };
-
-  showCartItems();
-  console.log("Liste des produits qui seront envoyes au serveur", products);
 
   //Calcul du prix total
   const totalPriceCalculation = (productList) => {
@@ -78,8 +21,73 @@ window.onload = () => {
     totalPriceContainer.innerHTML = totalPriceCalculation(productList);
   };
 
-  showTotalPrice();
+  const showCartItems = () => {
+    if (productList === null) {
+      let errormessage = document.getElementById("error-message-panier");
+      errormessage.classList.add("alert");
+      errormessage.innerHTML = "Votre panier est vide";
+    } else {
+      for (let item of productList) {
+        let productLine = document.createElement("div");
 
+        let productLineContainer = document.getElementById(
+          "products-container"
+        );
+        productLineContainer.appendChild(productLine);
+        productLine.classList.add("row", "bg-white", "my-3");
+
+        let productCol1 = document.createElement("div");
+        productCol1.classList.add("col-4");
+        productLine.appendChild(productCol1);
+
+        let productCard = document.createElement("div");
+        productCard.classList.add("card");
+        productCol1.appendChild(productCard);
+
+        let teddyImage = document.createElement("img");
+        teddyImage.classList.add("card-image-top");
+        productCard.appendChild(teddyImage);
+        teddyImage.setAttribute("src", item.imageUrl);
+
+        let productCol2 = document.createElement("div");
+        productCol2.classList.add("col-4", "my-auto");
+        productLine.appendChild(productCol2);
+
+        let productName = document.createElement("h2");
+        productName.classList.add("card-title");
+        productCol2.appendChild(productName);
+        productName.innerHTML = item.name;
+
+        let productColor = document.createElement("p");
+        productColor.classList.add("card-text");
+        productCol2.appendChild(productColor);
+        productColor.innerHTML = item.chosenColor;
+
+        let productCol3 = document.createElement("div");
+        productCol3.classList.add("col-4", "my-auto");
+        productLine.appendChild(productCol3);
+
+        let productPrice = document.createElement("p");
+        productPrice.classList.add(
+          "align-middle",
+          "my-auto",
+          "text-right",
+          "mr-2",
+          "price"
+        );
+        productCol3.appendChild(productPrice);
+        productPrice.innerHTML = item.price;
+
+        // Construction de la liste des ID a envoyer au serveur
+        // products.push(item._id);
+      }
+      showTotalPrice();
+   
+    }
+  };
+
+  showCartItems();
+ 
   // Construction de l'objet contact a envoyer au serveur
   let nom;
   let prenom;
@@ -112,19 +120,20 @@ window.onload = () => {
   });
 
   let mailContainer = document.getElementById("mail");
-  mailContainer.addEventListener("change", function (event) {
+  mailContainer.addEventListener("input", function (event) {
     mail = event.target.value;
     console.log(mail);
   });
 
   const getContactInfo = () => {
-    const mailFormat = /[A-Za-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}/;
+    const mailFormat = /[A-Za-z0-9._%+-]+@[a-z0-9.-]/;
     if (
       prenom !== undefined &&
       nom !== undefined &&
       addresse !== undefined &&
       ville !== undefined &&
-      mail !== undefined &&
+      mail !== undefined 
+      &&
       mail.match(mailFormat)
     ) {
       let contactInfo = {
@@ -137,26 +146,48 @@ window.onload = () => {
       console.log("Objet Contact dans la fonction getContactInfo", contactInfo);
       return contactInfo;
     } else {
-      
-
       console.log("Formulaire non complet");
+      let errormessage = document.getElementById("error-message");
+      errormessage.classList.add("alert");
+      errormessage.innerHTML = "Formulaire incomplet";
       return false;
     }
   };
 
+  // Verifier que le panier n'est pas vide
+  let products = [];
+  const checkCart = (productList) => {
+  if(productList === null){
+    
+      let formContainer = document.getElementById('form-container');
+      formContainer.classList.add('invisible');
+      return false
+  } else {
+    for (let item of productList) {
+      products.push(item._id);
+    }
+    return true;
+  }
+
+  };
+
+checkCart(productList);
   // Envoyer les donnees au serveur avec Promise
   let apiResponse;
   let confirmationButton = document.getElementById("confirmation-button");
 
   let sendOrderToServer = function () {
+    
     let contact = getContactInfo();
     let jsonBody = {
       contact,
       products,
     };
     console.log(jsonBody);
+    
     if (!contact) {
       console.error("error");
+      return false
     } else {
       console.log("final jsonbody", jsonBody);
       return fetch("http://localhost:3000/api/teddies/order", {
@@ -171,10 +202,10 @@ window.onload = () => {
           console.log("Reponse JSON si la requete se passe bien", jsonResponse);
           apiResponse = jsonResponse;
           let orderId = apiResponse.orderId;
+          // if orderId === null, wait for jsonResponse
           localStorage.setItem("orderId", JSON.stringify(orderId));
           let totalAmount = totalPriceCalculation(productList);
           localStorage.setItem("totalAmount", JSON.stringify(totalAmount));
-          // window.location.href = "../confirmation.html";
         })
         .catch((error) => console.error(error));
     }
