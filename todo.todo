@@ -9,9 +9,9 @@
 ✔ Pour les routes POST, l’objet contact envoyé au serveur doit contenir les champs firstName, lastName, address, city et email. Le tableau des produits envoyé au backend doit être un array de strings product_id. Les types de ces champs et leur présence doivent être validés avant l’envoi des données au serveur. (valider les types array et object avant envoi ?) @done (3/26/2021, 11:43:42 AM)
 ☐ verifier W3C HTML
 ☐ verifier W3C css
-☐ faire marcher bundle
+✔ faire marcher bundle @done (3/29/2021, 3:34:48 PM)
 ✔ vider automatiquement le panier @done (3/26/2021, 11:42:40 AM)
 ✔ mettre const plutot que let quand on reasigne pas @done (3/29/2021, 3:15:38 PM)
 ✔ empecher le changement de page si le panier est vide et mettre une alerte @done (3/26/2021, 3:55:21 PM)
-☐ sortir la fonction qui construit productIdList de la fonction showcart
+✔ sortir la fonction qui construit productIdList de la fonction showcart @done (3/29/2021, 3:34:45 PM)
 ✔ perdre le focus du champs email quand on clique sur le bouton sinon le formulaire n'est pas complet @done (3/26/2021, 5:11:07 PM)
