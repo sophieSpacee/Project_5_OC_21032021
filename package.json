@@ -21,15 +21,9 @@
     "bootstrap": "^4.6.0",
     "bootstrap-icons": "^1.4.0",
     "eslint": "^7.22.0",
-    "sass": "^1.32.8",
-    "webpack": "^5.27.1",
-    "webpack-cli": "^4.5.0"
+    "sass": "^1.32.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/preset-env": "^7.13.10",
-    "babel-loader": "^8.2.2",
-    "babel-polyfill": "^6.26.0",
     "prettier": "^2.2.1"
   }
 }
