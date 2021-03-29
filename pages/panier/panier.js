@@ -165,7 +165,7 @@ window.onload = () => {
 
   const sendOrderToServer = (e) => {
     const formContainer = document.getElementById("form-container");
-    formContainer.reportValidity()
+    formContainer.reportValidity();
     e.preventDefault();
     const contact = getContactInfo();
     const products = getProductList(productList);
@@ -190,7 +190,7 @@ window.onload = () => {
           localStorage.setItem("orderId", JSON.stringify(orderId));
           const totalAmount = totalPriceCalculation(productList);
           localStorage.setItem("totalAmount", JSON.stringify(totalAmount));
-          window.location.href= "../confirmation/confirmation.html"
+          window.location.href = "../confirmation/confirmation.html";
         })
         .catch((error) => console.error(error));
     }

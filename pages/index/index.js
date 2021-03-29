@@ -14,7 +14,7 @@ const getTeddies = fetch("http://localhost:3000/api/teddies", {
   .catch((error) => alert("Erreur: " + error));
 
 // Fonction qui construit une carte par produit sur la page d'accueil
-let buildTeddy = (element) => {
+const buildTeddy = (element) => {
   const teddy = document.createElement("div");
   teddy.onclick = () => {
     window.location.href="/pages/product/product.html?_id="+element._id

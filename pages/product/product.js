@@ -4,8 +4,6 @@ window.onload = () => {
   const urlParams = new URLSearchParams(queryString);
   const product_id = urlParams.get("_id");
 
-  console.log(product_id);
-
   // Promise qui récupère les données API du teddy et lance la fonction showTeddyDetail si tout se passe bien
  let teddy;
   const getTeddy = fetch("http://localhost:3000/api/teddies/" + product_id, {
@@ -23,7 +21,6 @@ window.onload = () => {
       return teddy;
     })
     .catch((error) => alert("Erreur: " + error));
-
 
   // Afficher le détail du produit sur la page product.html
   const showTeddyDetail = (teddy) => {
@@ -84,7 +81,6 @@ window.onload = () => {
     showSuccessMessage();
   };
 
-  
   // Fonction qui fait apparaitre un message de succes lors de l'ajout au panier
   const showSuccessMessage = () => {
     const successAlert = document.getElementById("alert-success");
@@ -96,6 +92,4 @@ window.onload = () => {
 
   const addToCartButton = document.getElementById("add-cart");
   addToCartButton.onclick = addTeddyToCart;
-
-  // localStorage.clear();
 };
