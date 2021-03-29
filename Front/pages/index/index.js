@@ -17,7 +17,7 @@ const getTeddies = fetch("http://localhost:3000/api/teddies", {
 let buildTeddy = (element) => {
   const teddy = document.createElement("div");
   teddy.onclick = () => {
-    window.location.href="/pages/product/product.html?_id="+element._id
+    window.location.href="../product/product.html?_id="+element._id
   }
   const teddyContainer = document.getElementById("teddy-container");
   teddyContainer.appendChild(teddy);
