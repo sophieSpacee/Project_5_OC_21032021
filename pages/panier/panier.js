@@ -82,12 +82,11 @@ window.onload = () => {
         // products.push(item._id);
       }
       showTotalPrice();
-   
     }
   };
 
   showCartItems();
- 
+
   // Construction de l'objet contact a envoyer au serveur
   let nom;
   let prenom;
@@ -132,8 +131,7 @@ window.onload = () => {
       nom !== undefined &&
       addresse !== undefined &&
       ville !== undefined &&
-      mail !== undefined 
-      &&
+      mail !== undefined &&
       mail.match(mailFormat)
     ) {
       let contactInfo = {
@@ -147,47 +145,64 @@ window.onload = () => {
       return contactInfo;
     } else {
       console.log("Formulaire non complet");
-      let errormessage = document.getElementById("error-message");
-      errormessage.classList.add("alert");
-      errormessage.innerHTML = "Formulaire incomplet";
+      // let errormessage = document.getElementById("error-message");
+      // errormessage.classList.add("alert");
+      // errormessage.innerHTML = "Formulaire incomplet";
       return false;
     }
   };
 
-  // Verifier que le panier n'est pas vide
-  let products = [];
-  const checkCart = (productList) => {
-  if(productList === null){
-    
-      let formContainer = document.getElementById('form-container');
-      formContainer.classList.add('invisible');
-      return false
-  } else {
-    for (let item of productList) {
-      products.push(item._id);
-    }
-    return true;
-  }
+  // Construit la liste produit à envoyer au serveur et vérifie que le panier n'est pas vide
 
+  const getProductList = (productList) => {
+    let products = [];
+    if (productList === null) {
+      let formContainer = document.getElementById("form-container");
+      formContainer.classList.add("invisible");
+      return false;
+    } else {
+      for (let item of productList) {
+        products.push(item._id);
+      }
+      return products;
+    }
   };
 
-checkCart(productList);
+  getProductList(productList);
+
+  // Fonction de validation
+
+  const form = document.getElementById("form-container");
+
+  // form.onsubmit = function(){
+  //   let contact = getContactInfo();
+  //   let products = getProductList(productList);
+  //     if (!contact || !products) {
+  //       return false
+  //     } else {
+  //       return true
+  //     }
+  //   }
+
   // Envoyer les donnees au serveur avec Promise
-  let apiResponse;
+  // let apiResponse;
   let confirmationButton = document.getElementById("confirmation-button");
 
-  let sendOrderToServer = function () {
-    
+  let sendOrderToServer = (e) => {
+    let formContainer = document.getElementById("form-container");
+    formContainer.reportValidity()
+    console.log(e)
+    e.preventDefault();
     let contact = getContactInfo();
+    let products = getProductList(productList);
     let jsonBody = {
       contact,
       products,
     };
     console.log(jsonBody);
-    
-    if (!contact) {
+    if (!contact || !products) {
       console.error("error");
-      return false
+      return false;
     } else {
       console.log("final jsonbody", jsonBody);
       return fetch("http://localhost:3000/api/teddies/order", {
@@ -199,18 +214,16 @@ checkCart(productList);
           return response.json();
         })
         .then((jsonResponse) => {
-          console.log("Reponse JSON si la requete se passe bien", jsonResponse);
-          apiResponse = jsonResponse;
-          let orderId = apiResponse.orderId;
-          // if orderId === null, wait for jsonResponse
+          let orderId = jsonResponse.orderId;
           localStorage.setItem("orderId", JSON.stringify(orderId));
           let totalAmount = totalPriceCalculation(productList);
           localStorage.setItem("totalAmount", JSON.stringify(totalAmount));
+          window.location.href= "../confirmation/confirmation.html"
         })
         .catch((error) => console.error(error));
     }
   };
 
   // Lancer la fonction sendOrderToServer quand on clique sur le bouton commander
-  confirmationButton.addEventListener("click", sendOrderToServer);
+  confirmationButton.addEventListener("click", (e) => sendOrderToServer(e));
 };
