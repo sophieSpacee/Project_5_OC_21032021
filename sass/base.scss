@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "roboto";
+  src: url(../fonts/Roboto-Medium.ttf);
+}
+
+@font-face {
+  font-family: "roboto-light";
+  src: url(../fonts/Roboto-Light.ttf);
+}
+
+header {
+  background-color: $purple;
+  box-shadow: 2px 2px 2px $grey;
+  img {
+    height: 2.5em;
+  }
+  nav {
+    a {
+      padding: 1.5em;
+      font-size: 1.1em;
+    }
+  }
+}
+
+main{
+  min-height: calc(100vh - 13em);
+}
+
+.btn-primary {
+background-color: $primary;
+font-family: 'roboto';
+border: none;
+  &:hover {
+    background-color: darken($color: $primary, $amount: 10);
+  }
+}
+
+h1 {
+  font-size: 1.5em;
+  text-align: center;
+  margin: 2em;
+}
+
+.price{
+  color: $primary;
+  font-family: 'roboto';
+  &::after{
+    content: '€';
+  }
+}
+
+.roboto {
+  font-family: 'roboto';
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.footer {
+  background-color: $purple;
+  height: 5em;
+  text-align: center;
+}

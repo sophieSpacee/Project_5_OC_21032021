@@ -1,0 +1,29 @@
+{
+  "name": "sophiegauthier_5_21032021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:css/style.css --style compressed",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sophieSpacee/SophieGauthier_5_21032021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sophieSpacee/SophieGauthier_5_21032021/issues"
+  },
+  "homepage": "https://github.com/sophieSpacee/SophieGauthier_5_21032021#readme",
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "bootstrap-icons": "^1.4.0",
+    "eslint": "^7.22.0",
+    "sass": "^1.32.8"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}
