@@ -11,7 +11,7 @@
 ☐ verifier W3C css
 ☐ faire marcher bundle
 ✔ vider automatiquement le panier @done (3/26/2021, 11:42:40 AM)
-☐ mettre const plutot que let quand on reasigne pas
+✔ mettre const plutot que let quand on reasigne pas @done (3/29/2021, 3:15:38 PM)
 ✔ empecher le changement de page si le panier est vide et mettre une alerte @done (3/26/2021, 3:55:21 PM)
 ☐ sortir la fonction qui construit productIdList de la fonction showcart
 ✔ perdre le focus du champs email quand on clique sur le bouton sinon le formulaire n'est pas complet @done (3/26/2021, 5:11:07 PM)

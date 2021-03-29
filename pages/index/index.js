@@ -1,6 +1,6 @@
 
 // Promise qui récupère les données API et lance la fonction buildTeddies si tout se passe bien
-let getTeddies = fetch("http://localhost:3000/api/teddies", {
+const getTeddies = fetch("http://localhost:3000/api/teddies", {
   method: "GET",
 })
   .then((response) => {
@@ -19,7 +19,7 @@ let buildTeddy = (element) => {
   teddy.onclick = () => {
     window.location.href="/pages/product/product.html?_id="+element._id
   }
-  let teddyContainer = document.getElementById("teddy-container");
+  const teddyContainer = document.getElementById("teddy-container");
   teddyContainer.appendChild(teddy);
   teddy.classList.add("col-12", "col-lg-4",  "col-sm-6", "mt-3", "mb-3", "pointer");
   

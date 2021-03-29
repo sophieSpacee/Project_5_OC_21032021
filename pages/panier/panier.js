@@ -1,17 +1,12 @@
 window.onload = () => {
-  // Fonction qui fait apparaitre les elements du panier sur la page a partir du local storage
-  // let products = [];
-  let productList = JSON.parse(localStorage.getItem("teddy"));
+  const productList = JSON.parse(localStorage.getItem("teddy"));
 
   //Calcul du prix total
   const totalPriceCalculation = (productList) => {
-    console.log(productList);
     let totalPrice = 0;
     for (let item of productList) {
-      totalPrice = totalPrice + item.price;
-      console.log("Chaque produit present dans le panier : ", item);
+      totalPrice += item.price;
     }
-    console.log("Prix total calcule par la fonction", totalPrice);
     return totalPrice;
   };
 
@@ -21,6 +16,7 @@ window.onload = () => {
     totalPriceContainer.innerHTML = totalPriceCalculation(productList);
   };
 
+  //Fonction qui fait apparaitre dans le panier les articles contenus dans local storage
   const showCartItems = () => {
     if (productList === null) {
       let errormessage = document.getElementById("error-message-panier");
@@ -28,46 +24,46 @@ window.onload = () => {
       errormessage.innerHTML = "Votre panier est vide";
     } else {
       for (let item of productList) {
-        let productLine = document.createElement("div");
+        const productLine = document.createElement("div");
 
-        let productLineContainer = document.getElementById(
+        const productLineContainer = document.getElementById(
           "products-container"
         );
         productLineContainer.appendChild(productLine);
         productLine.classList.add("row", "bg-white", "my-3");
 
-        let productCol1 = document.createElement("div");
+        const productCol1 = document.createElement("div");
         productCol1.classList.add("col-4");
         productLine.appendChild(productCol1);
 
-        let productCard = document.createElement("div");
+        const productCard = document.createElement("div");
         productCard.classList.add("card");
         productCol1.appendChild(productCard);
 
-        let teddyImage = document.createElement("img");
+        const teddyImage = document.createElement("img");
         teddyImage.classList.add("card-image-top");
         productCard.appendChild(teddyImage);
         teddyImage.setAttribute("src", item.imageUrl);
 
-        let productCol2 = document.createElement("div");
+        const productCol2 = document.createElement("div");
         productCol2.classList.add("col-4", "my-auto");
         productLine.appendChild(productCol2);
 
-        let productName = document.createElement("h2");
+        const productName = document.createElement("h2");
         productName.classList.add("card-title");
         productCol2.appendChild(productName);
         productName.innerHTML = item.name;
 
-        let productColor = document.createElement("p");
+        const productColor = document.createElement("p");
         productColor.classList.add("card-text");
         productCol2.appendChild(productColor);
         productColor.innerHTML = item.chosenColor;
 
-        let productCol3 = document.createElement("div");
+        const productCol3 = document.createElement("div");
         productCol3.classList.add("col-4", "my-auto");
         productLine.appendChild(productCol3);
 
-        let productPrice = document.createElement("p");
+        const productPrice = document.createElement("p");
         productPrice.classList.add(
           "align-middle",
           "my-auto",
@@ -77,9 +73,6 @@ window.onload = () => {
         );
         productCol3.appendChild(productPrice);
         productPrice.innerHTML = item.price;
-
-        // Construction de la liste des ID a envoyer au serveur
-        // products.push(item._id);
       }
       showTotalPrice();
     }
@@ -134,25 +127,21 @@ window.onload = () => {
       mail !== undefined &&
       mail.match(mailFormat)
     ) {
-      let contactInfo = {
+      const contactInfo = {
         firstName: prenom,
         lastName: nom,
         address: addresse,
         city: ville,
         email: mail,
       };
-      console.log("Objet Contact dans la fonction getContactInfo", contactInfo);
       return contactInfo;
     } else {
       console.log("Formulaire non complet");
-      // let errormessage = document.getElementById("error-message");
-      // errormessage.classList.add("alert");
-      // errormessage.innerHTML = "Formulaire incomplet";
       return false;
     }
   };
 
-  // Construit la liste produit à envoyer au serveur et vérifie que le panier n'est pas vide
+  // Cache le formulaire si le panier est vide, construit la liste produit à envoyer au serveur si le panier est rempli
 
   const getProductList = (productList) => {
     let products = [];
@@ -170,41 +159,24 @@ window.onload = () => {
 
   getProductList(productList);
 
-  // Fonction de validation
-
-  const form = document.getElementById("form-container");
-
-  // form.onsubmit = function(){
-  //   let contact = getContactInfo();
-  //   let products = getProductList(productList);
-  //     if (!contact || !products) {
-  //       return false
-  //     } else {
-  //       return true
-  //     }
-  //   }
-
   // Envoyer les donnees au serveur avec Promise
-  // let apiResponse;
-  let confirmationButton = document.getElementById("confirmation-button");
 
-  let sendOrderToServer = (e) => {
-    let formContainer = document.getElementById("form-container");
+  const confirmationButton = document.getElementById("confirmation-button");
+
+  const sendOrderToServer = (e) => {
+    const formContainer = document.getElementById("form-container");
     formContainer.reportValidity()
-    console.log(e)
     e.preventDefault();
-    let contact = getContactInfo();
-    let products = getProductList(productList);
-    let jsonBody = {
+    const contact = getContactInfo();
+    const products = getProductList(productList);
+    const jsonBody = {
       contact,
       products,
     };
-    console.log(jsonBody);
     if (!contact || !products) {
       console.error("error");
       return false;
     } else {
-      console.log("final jsonbody", jsonBody);
       return fetch("http://localhost:3000/api/teddies/order", {
         headers: { "Content-Type": "application/json" },
         method: "POST",
@@ -214,9 +186,9 @@ window.onload = () => {
           return response.json();
         })
         .then((jsonResponse) => {
-          let orderId = jsonResponse.orderId;
+          const orderId = jsonResponse.orderId;
           localStorage.setItem("orderId", JSON.stringify(orderId));
-          let totalAmount = totalPriceCalculation(productList);
+          const totalAmount = totalPriceCalculation(productList);
           localStorage.setItem("totalAmount", JSON.stringify(totalAmount));
           window.location.href= "../confirmation/confirmation.html"
         })
