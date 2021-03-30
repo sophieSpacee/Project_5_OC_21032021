@@ -1,11 +1,16 @@
 window.onload = () => {
   // Recuperer l'ID du teddy dans l'URL
-  const queryString = window.location.search;
+  const getUrl = () => {
+    const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const product_id = urlParams.get("_id");
+  return product_id;
+  }
+  
 
   // Promise qui récupère les données API du teddy et lance la fonction showTeddyDetail si tout se passe bien
  let teddy;
+ let product_id = getUrl();
   const getTeddy = fetch("http://localhost:3000/api/teddies/" + product_id, {
     method: "GET",
   })
@@ -79,6 +84,7 @@ window.onload = () => {
     console.log(localStorage.getItem("teddy"));
 
     showSuccessMessage();
+    showCartItemNumber();
   };
 
   // Fonction qui fait apparaitre un message de succes lors de l'ajout au panier
@@ -92,4 +98,14 @@ window.onload = () => {
 
   const addToCartButton = document.getElementById("add-cart");
   addToCartButton.onclick = addTeddyToCart;
+
+  // Fonction qui fait apparaitre le nombre d'articles dans le panier
+const showCartItemNumber = () => {
+  const productList = JSON.parse(localStorage.getItem("teddy"));
+  const numberOfItem = productList.length;
+  console.log(numberOfItem);
+  const numberOfItemContainer = document.getElementById('cart-length');
+  numberOfItemContainer.innerHTML = numberOfItem;
+}
+showCartItemNumber();
 };

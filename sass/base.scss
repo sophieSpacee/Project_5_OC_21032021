@@ -36,7 +36,7 @@ border: none;
 }
 
 h1 {
-  font-size: 1.5em;
+  font-size: 1.8em;
   text-align: center;
   margin: 2em;
 }
@@ -44,6 +44,7 @@ h1 {
 .price{
   color: $primary;
   font-family: 'roboto';
+  font-size: 1.5em;
   &::after{
     content: '€';
   }
@@ -55,6 +56,24 @@ h1 {
 
 .pointer {
   cursor: pointer;
+}
+
+
+.cart-length {
+  background-color: white;
+  border-radius: 50%;
+  height: 1.5em;
+  width: 1.5em;
+  line-height: 1.5em;
+  font-size: 0.7em;
+  color: $primary;
+  font-family: 'roboto';
+  display: inline-block;
+  text-align: center;
+}
+
+.remove-item {
+  width: 1.5em;
 }
 
 .footer {

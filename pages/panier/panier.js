@@ -1,6 +1,4 @@
 window.onload = () => {
-  const productList = JSON.parse(localStorage.getItem("teddy"));
-
   //Calcul du prix total
   const totalPriceCalculation = (productList) => {
     let totalPrice = 0;
@@ -12,18 +10,21 @@ window.onload = () => {
 
   //Affichage du prix total dans le panier
   const showTotalPrice = () => {
+    let productList = JSON.parse(localStorage.getItem("teddy"));
     const totalPriceContainer = document.getElementById("total-price");
     totalPriceContainer.innerHTML = totalPriceCalculation(productList);
   };
 
   //Fonction qui fait apparaitre dans le panier les articles contenus dans local storage
   const showCartItems = () => {
-    if (productList === null) {
+    let productList = JSON.parse(localStorage.getItem("teddy"));
+    if (productList.length===0) {
       let errormessage = document.getElementById("error-message-panier");
       errormessage.classList.add("alert");
       errormessage.innerHTML = "Votre panier est vide";
     } else {
-      for (let item of productList) {
+      for (let index in productList) {
+        let item = productList[index];
         const productLine = document.createElement("div");
 
         const productLineContainer = document.getElementById(
@@ -33,7 +34,7 @@ window.onload = () => {
         productLine.classList.add("row", "bg-white", "my-3");
 
         const productCol1 = document.createElement("div");
-        productCol1.classList.add("col-4");
+        productCol1.classList.add("col-4", "pl-0");
         productLine.appendChild(productCol1);
 
         const productCard = document.createElement("div");
@@ -60,7 +61,7 @@ window.onload = () => {
         productColor.innerHTML = item.chosenColor;
 
         const productCol3 = document.createElement("div");
-        productCol3.classList.add("col-4", "my-auto");
+        productCol3.classList.add("col-3", "my-auto");
         productLine.appendChild(productCol3);
 
         const productPrice = document.createElement("p");
@@ -73,6 +74,17 @@ window.onload = () => {
         );
         productCol3.appendChild(productPrice);
         productPrice.innerHTML = item.price;
+
+        const deleteButton = document.createElement("input");
+        deleteButton.classList.add("remove-item", "btn-primary");
+        deleteButton.type = "button";
+        deleteButton.value = "X";
+        deleteButton.onclick = () => deleteItem(index);
+
+        const productCol4 = document.createElement("div");
+        productCol4.classList.add("col-1", "my-auto");
+        productLine.appendChild(productCol4);
+        productCol4.appendChild(deleteButton);
       }
       showTotalPrice();
     }
@@ -143,9 +155,10 @@ window.onload = () => {
 
   // Cache le formulaire si le panier est vide, construit la liste produit à envoyer au serveur si le panier est rempli
 
-  const getProductList = (productList) => {
+  const getProductList = () => {
+    let productList = JSON.parse(localStorage.getItem("teddy"));
     let products = [];
-    if (productList === null) {
+    if (productList.length === 0) {
       let formContainer = document.getElementById("form-container");
       formContainer.classList.add("invisible");
       return false;
@@ -156,8 +169,24 @@ window.onload = () => {
       return products;
     }
   };
+  getProductList();
 
-  getProductList(productList);
+  // Suppression d'un produit du panier
+
+  const deleteItem = (productIndex) => {
+    const existing = localStorage.getItem("teddy");
+    console.log(existing);
+    if (existing) {
+      let teddies = JSON.parse(existing);
+      console.log(teddies);
+      teddies.splice(productIndex, 1);
+      console.log(productIndex);
+      localStorage.setItem("teddy", JSON.stringify(teddies));
+      window.location.reload();
+    } else {
+      return false;
+    }
+  };
 
   // Envoyer les donnees au serveur avec Promise
 

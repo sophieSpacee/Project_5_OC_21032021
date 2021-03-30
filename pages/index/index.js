@@ -1,4 +1,4 @@
-
+window.onload = () => {
 // Promise qui récupère les données API et lance la fonction buildTeddies si tout se passe bien
 const getTeddies = fetch("http://localhost:3000/api/teddies", {
   method: "GET",
@@ -47,3 +47,15 @@ const buildTeddy = (element) => {
   teddyPrice.classList.add('card-text', 'price', 'text-right');
 };
 
+// Fonction qui fait apparaitre le nombre d'articles dans le panier
+const showCartItemNumber = () => {
+  const productList = JSON.parse(localStorage.getItem("teddy"));
+  const numberOfItem = productList.length;
+  console.log(numberOfItem);
+  const numberOfItemContainer = document.getElementById('cart-length');
+  numberOfItemContainer.innerHTML = numberOfItem;
+}
+
+showCartItemNumber();
+
+}

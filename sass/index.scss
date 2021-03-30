@@ -10,5 +10,13 @@
   
   .card-hover:hover {
     box-shadow: 5px 5px 5px $grey;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.05, 1.05);
+    border: none;
   }
+
+  .card {
+    border: none;
+  }
+
   
