@@ -1,24 +1,28 @@
 window.onload = () => {
-  //Calcul du prix total
-  const totalPriceCalculation = (productList) => {
-    let totalPrice = 0;
-    for (let item of productList) {
-      totalPrice += item.price;
-    }
-    return totalPrice;
-  };
+  
 
   //Affichage du prix total dans le panier
   const showTotalPrice = () => {
-    let productList = JSON.parse(localStorage.getItem("teddy"));
     const totalPriceContainer = document.getElementById("total-price");
-    totalPriceContainer.innerHTML = totalPriceCalculation(productList);
+    totalPriceContainer.innerHTML = totalPriceCalculation();
+  };
+
+  //Calcul du prix total
+  const totalPriceCalculation = () => {
+    let productList = JSON.parse(localStorage.getItem("teddy"));
+    let totalPrice = 0;
+    for (let item of productList) {
+      let totalItemPrice = item.price * item.chosenQuantity;
+      totalPrice += totalItemPrice;
+    }
+    return totalPrice;
   };
 
   //Fonction qui fait apparaitre dans le panier les articles contenus dans local storage
   const showCartItems = () => {
     let productList = JSON.parse(localStorage.getItem("teddy"));
-    if (productList.length===0) {
+    console.log(productList);
+    if (productList === null) {
       let errormessage = document.getElementById("error-message-panier");
       errormessage.classList.add("alert");
       errormessage.innerHTML = "Votre panier est vide";
@@ -56,9 +60,14 @@ window.onload = () => {
         productName.innerHTML = item.name;
 
         const productColor = document.createElement("p");
-        productColor.classList.add("card-text");
+        productColor.classList.add("card-text", 'color');
         productCol2.appendChild(productColor);
         productColor.innerHTML = item.chosenColor;
+
+        const productQuantity = document.createElement("p");
+        productQuantity.classList.add("card-text", 'quantity');
+        productCol2.appendChild(productQuantity);
+        productQuantity.innerHTML = item.chosenQuantity;
 
         const productCol3 = document.createElement("div");
         productCol3.classList.add("col-3", "my-auto");
@@ -67,13 +76,29 @@ window.onload = () => {
         const productPrice = document.createElement("p");
         productPrice.classList.add(
           "align-middle",
-          "my-auto",
+          
           "text-right",
           "mr-2",
-          "price"
+         'unity-price'
         );
         productCol3.appendChild(productPrice);
         productPrice.innerHTML = item.price;
+
+        const productTotalPrice = document.createElement("p");
+        productTotalPrice.classList.add(
+          "align-middle",
+        
+          "text-right",
+          "mr-2",
+          'total-price'
+        );
+        productCol3.appendChild(productTotalPrice);
+        let quantityTimesPrice = () => { 
+          let totalPrice;
+          totalPrice = item.price * item.chosenQuantity;
+          return totalPrice;
+        }
+        productTotalPrice.innerHTML = quantityTimesPrice();
 
         const deleteButton = document.createElement("input");
         deleteButton.classList.add("remove-item", "btn-primary");
@@ -89,7 +114,6 @@ window.onload = () => {
       showTotalPrice();
     }
   };
-
   showCartItems();
 
   // Construction de l'objet contact a envoyer au serveur
@@ -158,7 +182,7 @@ window.onload = () => {
   const getProductList = () => {
     let productList = JSON.parse(localStorage.getItem("teddy"));
     let products = [];
-    if (productList.length === 0) {
+    if (productList === null) {
       let formContainer = document.getElementById("form-container");
       formContainer.classList.add("invisible");
       return false;
@@ -197,7 +221,7 @@ window.onload = () => {
     formContainer.reportValidity();
     e.preventDefault();
     const contact = getContactInfo();
-    const products = getProductList(productList);
+    const products = getProductList();
     const jsonBody = {
       contact,
       products,
@@ -217,7 +241,7 @@ window.onload = () => {
         .then((jsonResponse) => {
           const orderId = jsonResponse.orderId;
           localStorage.setItem("orderId", JSON.stringify(orderId));
-          const totalAmount = totalPriceCalculation(productList);
+          const totalAmount = totalPriceCalculation();
           localStorage.setItem("totalAmount", JSON.stringify(totalAmount));
           window.location.href = "../confirmation/confirmation.html";
         })

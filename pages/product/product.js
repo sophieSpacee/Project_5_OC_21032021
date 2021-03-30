@@ -7,7 +7,6 @@ window.onload = () => {
   return product_id;
   }
   
-
   // Promise qui récupère les données API du teddy et lance la fonction showTeddyDetail si tout se passe bien
  let teddy;
  let product_id = getUrl();
@@ -23,6 +22,7 @@ window.onload = () => {
       const colorList = document.getElementsByTagName("option");
       const firstColor = colorList[0].innerHTML;
       teddy.chosenColor = firstColor;
+      teddy.chosenQuantity = 1;
       return teddy;
     })
     .catch((error) => alert("Erreur: " + error));
@@ -43,6 +43,7 @@ window.onload = () => {
     teddyPrice2.classList.add("price");
 
     getColorList(teddy);
+    getQuantity(teddy);
   };
 
   // Fonction qui recupere la liste des couleur disponible pour ce teddy et les affiche dans une liste deroulante
@@ -55,6 +56,7 @@ window.onload = () => {
       option.innerHTML = color;
     });
     getChosenColor(teddy);
+ 
   };
 
   // Fonction qui recupere la couleur choisie dans le menu deroulant et qui l'ajoute a l'objet teddy
@@ -69,6 +71,18 @@ window.onload = () => {
     });
   };
 
+  //Recuperer la quantité
+  const getQuantity = (teddy) => {
+    const quantity = document.getElementById("quantity");
+    quantity.addEventListener("change", (event) => {
+      let chosenQuantity = parseInt(event.target.value);
+      teddy.chosenQuantity = chosenQuantity;
+      console.log(chosenQuantity);
+      console.log(teddy);
+      return chosenQuantity;
+    });
+  };
+
   // Fonction qui ajoute le teddy au panier
   const addTeddyToCart = () => {
     const existing = localStorage.getItem("teddy");
@@ -78,8 +92,20 @@ window.onload = () => {
     } else {
       teddies = [];
     }
-    console.log(teddy);
+    console.log(teddies)
+    console.log(teddy)
+    let alreadyInCart = false;
+    teddies.forEach(element => {
+      if (teddy.product_id === element.product_id && teddy.chosenColor === element.chosenColor){
+        console.log(teddies[0].chosenQuantity)
+        element.chosenQuantity += teddy.chosenQuantity;
+        alreadyInCart = true;
+      } 
+  });
+  if(!alreadyInCart){
     teddies.push(teddy);
+  }
+    console.log(teddies);
     localStorage.setItem("teddy", JSON.stringify(teddies));
     console.log(localStorage.getItem("teddy"));
 
@@ -99,10 +125,22 @@ window.onload = () => {
   const addToCartButton = document.getElementById("add-cart");
   addToCartButton.onclick = addTeddyToCart;
 
+  // Calcul du nombre de produits dans le panier
+  const calcutateNumberOfItemsInCart = (productList) => {
+    let itemNumber = 0;
+    console.log(productList)
+    productList.forEach(element => {
+      itemNumber += element.chosenQuantity;
+      console.log(element.chosenQuantity)
+      console.log(itemNumber)
+    });
+    return itemNumber;
+  };
+
   // Fonction qui fait apparaitre le nombre d'articles dans le panier
 const showCartItemNumber = () => {
   const productList = JSON.parse(localStorage.getItem("teddy"));
-  const numberOfItem = productList.length;
+  const numberOfItem = calcutateNumberOfItemsInCart(productList);
   console.log(numberOfItem);
   const numberOfItemContainer = document.getElementById('cart-length');
   numberOfItemContainer.innerHTML = numberOfItem;
