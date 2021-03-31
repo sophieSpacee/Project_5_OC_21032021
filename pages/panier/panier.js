@@ -2,7 +2,6 @@ window.onload = () => {
   //Fonction qui fait apparaitre dans le panier les articles contenus dans local storage
   const showCartItems = () => {
     let productList = JSON.parse(localStorage.getItem("teddy"));
-    console.log(productList);
     if (productList === null) {
       let errormessage = document.getElementById("error-message-panier");
       errormessage.classList.add("alert");
@@ -118,7 +117,7 @@ window.onload = () => {
   // Construction de l'objet contact a envoyer au serveur
   let nom;
   let prenom;
-  let addresse;
+  let adresse;
   let ville;
   let mail;
 
@@ -136,8 +135,8 @@ window.onload = () => {
 
   let addressContainer = document.getElementById("address");
   addressContainer.addEventListener("change", function (event) {
-    addresse = event.target;
-    addresseValue = event.target.value;
+    adresse = event.target;
+    adresseValue = event.target.value;
   });
 
   let cityContainer = document.getElementById("city");
@@ -157,68 +156,55 @@ window.onload = () => {
     if (
       prenom.checkValidity() === true &&
       nom.checkValidity() === true &&
-      addresse.checkValidity() === true &&
+      adresse.checkValidity() === true &&
       ville.checkValidity() === true &&
       mail.checkValidity() === true
     ) {
       const contactInfo = {
         firstName: prenomValue,
         lastName: nomValue,
-        address: addresseValue,
+        address: adresseValue,
         city: villeValue,
         email: mailValue,
       };
       return contactInfo;
     } else {
-      console.log("Formulaire non complet");
+      console.error("Formulaire non complet");
       return false;
     }
   };
 
   // Cache le formulaire si le panier est vide, construit la liste produit à envoyer au serveur si le panier est rempli
-
   const getProductList = () => {
     let productList = JSON.parse(localStorage.getItem("teddy"));
     let products = [];
-    if (productList===null || productList.length===0) {
+    if (productList === null || productList.length === 0) {
       let formContainer = document.getElementById("form-container");
       formContainer.classList.add("invisible");
       return false;
     } else {
       for (let item of productList) {
         let numberOfIteration = item.chosenQuantity;
-        console.log(numberOfIteration);
         for (let i = 0; i < numberOfIteration; i++) {
           products.push(item._id);
         }
       }
-      console.log(products);
-      console.log(productList)
-      return products;
     }
   };
   getProductList();
 
   // Suppression d'un produit du panier
-
   const deleteItem = (productIndex) => {
     const existing = localStorage.getItem("teddy");
-    console.log(existing);
     if (existing) {
       let teddies = JSON.parse(existing);
-      console.log(teddies);
       teddies.splice(productIndex, 1);
-      console.log(productIndex);
       localStorage.setItem("teddy", JSON.stringify(teddies));
-      getProductList();
-      console.log(teddies)
-      console.log(localStorage)
       window.location.reload();
-    } 
+    }
   };
 
   // Envoyer les donnees au serveur avec Promise
-
   const confirmationButton = document.getElementById("confirmation-button");
 
   const sendOrderToServer = (e) => {
@@ -231,7 +217,7 @@ window.onload = () => {
       contact,
       products,
     };
-    if (!contact || products.length===0) {
+    if (!contact || !products) {
       console.error("error");
       return false;
     } else {
