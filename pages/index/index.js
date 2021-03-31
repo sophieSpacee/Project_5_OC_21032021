@@ -50,7 +50,10 @@ const buildTeddy = (element) => {
 // Fonction qui fait apparaitre le nombre d'articles dans le panier
 const showCartItemNumber = () => {
   const productList = JSON.parse(localStorage.getItem("teddy"));
-  const numberOfItem = productList.length;
+  let numberOfItem = 0;
+  if(productList!==null){
+    numberOfItem = productList.length;
+  }
   console.log(numberOfItem);
   const numberOfItemContainer = document.getElementById('cart-length');
   numberOfItemContainer.innerHTML = numberOfItem;

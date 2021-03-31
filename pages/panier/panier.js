@@ -1,23 +1,4 @@
 window.onload = () => {
-  
-
-  //Affichage du prix total dans le panier
-  const showTotalPrice = () => {
-    const totalPriceContainer = document.getElementById("total-price");
-    totalPriceContainer.innerHTML = totalPriceCalculation();
-  };
-
-  //Calcul du prix total
-  const totalPriceCalculation = () => {
-    let productList = JSON.parse(localStorage.getItem("teddy"));
-    let totalPrice = 0;
-    for (let item of productList) {
-      let totalItemPrice = item.price * item.chosenQuantity;
-      totalPrice += totalItemPrice;
-    }
-    return totalPrice;
-  };
-
   //Fonction qui fait apparaitre dans le panier les articles contenus dans local storage
   const showCartItems = () => {
     let productList = JSON.parse(localStorage.getItem("teddy"));
@@ -60,12 +41,12 @@ window.onload = () => {
         productName.innerHTML = item.name;
 
         const productColor = document.createElement("p");
-        productColor.classList.add("card-text", 'color');
+        productColor.classList.add("card-text", "color");
         productCol2.appendChild(productColor);
         productColor.innerHTML = item.chosenColor;
 
         const productQuantity = document.createElement("p");
-        productQuantity.classList.add("card-text", 'quantity');
+        productQuantity.classList.add("card-text", "quantity");
         productCol2.appendChild(productQuantity);
         productQuantity.innerHTML = item.chosenQuantity;
 
@@ -76,10 +57,10 @@ window.onload = () => {
         const productPrice = document.createElement("p");
         productPrice.classList.add(
           "align-middle",
-          
+
           "text-right",
           "mr-2",
-         'unity-price'
+          "unity-price"
         );
         productCol3.appendChild(productPrice);
         productPrice.innerHTML = item.price;
@@ -87,17 +68,17 @@ window.onload = () => {
         const productTotalPrice = document.createElement("p");
         productTotalPrice.classList.add(
           "align-middle",
-        
+
           "text-right",
           "mr-2",
-          'total-price'
+          "total-price"
         );
         productCol3.appendChild(productTotalPrice);
-        let quantityTimesPrice = () => { 
+        let quantityTimesPrice = () => {
           let totalPrice;
           totalPrice = item.price * item.chosenQuantity;
           return totalPrice;
-        }
+        };
         productTotalPrice.innerHTML = quantityTimesPrice();
 
         const deleteButton = document.createElement("input");
@@ -114,6 +95,24 @@ window.onload = () => {
       showTotalPrice();
     }
   };
+
+  //Calcul du prix total
+  const totalPriceCalculation = () => {
+    let productList = JSON.parse(localStorage.getItem("teddy"));
+    let totalPrice = 0;
+    for (let item of productList) {
+      let totalItemPrice = item.price * item.chosenQuantity;
+      totalPrice += totalItemPrice;
+    }
+    return totalPrice;
+  };
+
+  //Affichage du prix total dans le panier
+  const showTotalPrice = () => {
+    const totalPriceContainer = document.getElementById("total-price");
+    totalPriceContainer.innerHTML = totalPriceCalculation();
+  };
+
   showCartItems();
 
   // Construction de l'objet contact a envoyer au serveur
@@ -125,50 +124,49 @@ window.onload = () => {
 
   let nameContainer = document.getElementById("lastName");
   nameContainer.addEventListener("change", function (event) {
-    nom = event.target.value;
-    console.log(nom);
+    nom = event.target;
+    nomValue = event.target.value;
   });
 
   let firstNameContainer = document.getElementById("firstName");
   firstNameContainer.addEventListener("change", function (event) {
-    prenom = event.target.value;
-    console.log(prenom);
+    prenom = event.target;
+    prenomValue = event.target.value;
   });
 
   let addressContainer = document.getElementById("address");
   addressContainer.addEventListener("change", function (event) {
-    addresse = event.target.value;
-    console.log(addresse);
+    addresse = event.target;
+    addresseValue = event.target.value;
   });
 
   let cityContainer = document.getElementById("city");
   cityContainer.addEventListener("change", function (event) {
-    ville = event.target.value;
-    console.log(ville);
+    ville = event.target;
+    villeValue = event.target.value;
   });
 
   let mailContainer = document.getElementById("mail");
   mailContainer.addEventListener("input", function (event) {
-    mail = event.target.value;
-    console.log(mail);
+    mail = event.target;
+    mailValue = event.target.value;
   });
 
+  // Fonction qui construit l'objet contact si le formulaire est bien rempli
   const getContactInfo = () => {
-    const mailFormat = /[A-Za-z0-9._%+-]+@[a-z0-9.-]/;
     if (
-      prenom !== undefined &&
-      nom !== undefined &&
-      addresse !== undefined &&
-      ville !== undefined &&
-      mail !== undefined &&
-      mail.match(mailFormat)
+      prenom.checkValidity() === true &&
+      nom.checkValidity() === true &&
+      addresse.checkValidity() === true &&
+      ville.checkValidity() === true &&
+      mail.checkValidity() === true
     ) {
       const contactInfo = {
-        firstName: prenom,
-        lastName: nom,
-        address: addresse,
-        city: ville,
-        email: mail,
+        firstName: prenomValue,
+        lastName: nomValue,
+        address: addresseValue,
+        city: villeValue,
+        email: mailValue,
       };
       return contactInfo;
     } else {
@@ -182,14 +180,20 @@ window.onload = () => {
   const getProductList = () => {
     let productList = JSON.parse(localStorage.getItem("teddy"));
     let products = [];
-    if (productList === null) {
+    if (productList===null || productList.length===0) {
       let formContainer = document.getElementById("form-container");
       formContainer.classList.add("invisible");
       return false;
     } else {
       for (let item of productList) {
-        products.push(item._id);
+        let numberOfIteration = item.chosenQuantity;
+        console.log(numberOfIteration);
+        for (let i = 0; i < numberOfIteration; i++) {
+          products.push(item._id);
+        }
       }
+      console.log(products);
+      console.log(productList)
       return products;
     }
   };
@@ -206,10 +210,11 @@ window.onload = () => {
       teddies.splice(productIndex, 1);
       console.log(productIndex);
       localStorage.setItem("teddy", JSON.stringify(teddies));
+      getProductList();
+      console.log(teddies)
+      console.log(localStorage)
       window.location.reload();
-    } else {
-      return false;
-    }
+    } 
   };
 
   // Envoyer les donnees au serveur avec Promise
@@ -226,7 +231,7 @@ window.onload = () => {
       contact,
       products,
     };
-    if (!contact || !products) {
+    if (!contact || products.length===0) {
       console.error("error");
       return false;
     } else {

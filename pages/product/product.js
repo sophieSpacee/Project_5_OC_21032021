@@ -128,12 +128,15 @@ window.onload = () => {
   // Calcul du nombre de produits dans le panier
   const calcutateNumberOfItemsInCart = (productList) => {
     let itemNumber = 0;
+    if(productList!==null){
+      productList.forEach(element => {
+        itemNumber += element.chosenQuantity;
+        console.log(element.chosenQuantity)
+        console.log(itemNumber)
+      });
+    }
     console.log(productList)
-    productList.forEach(element => {
-      itemNumber += element.chosenQuantity;
-      console.log(element.chosenQuantity)
-      console.log(itemNumber)
-    });
+    
     return itemNumber;
   };
 

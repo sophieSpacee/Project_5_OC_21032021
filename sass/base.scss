@@ -72,6 +72,37 @@ h1 {
     content : ' €';
   }
  }
+
+ .form-control{
+   display: initial;
+ }
+ form .form-control:focus{
+  box-shadow: none;
+}
+
+ input + span {
+  position: relative;
+}
+
+input + span::before {
+  position: absolute;
+  right: -20px;
+  top: 0;
+}
+
+input[pattern]:invalid {
+  border: 1px solid $warning;
+}
+
+input[pattern]:valid {
+  border: 2px solid $success;
+}
+
+input:valid + span::before {
+  content: '✓';
+  color: $success;
+}
+
 .roboto {
   font-family: 'roboto';
 }

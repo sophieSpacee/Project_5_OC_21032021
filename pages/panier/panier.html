@@ -63,24 +63,29 @@
           <div class="col-12 col-md-8 col-lg-6 align-self-center">
             <form id="form-container" action="../confirmation/confirmation.html">
               <div class="form-group">
-                <label for="firstName">Prénom</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Prénom" required>
+                <label for="firstName">Prénom *</label>
+                <input type="text" pattern="^[a-z ,.'-]+$" minlength="2" class="form-control" id="firstName" placeholder="Prénom" required title="L'adresse mail doit contenir un @ et se terminer par .xx">
+                <span></span>
               </div>
               <div class="form-group">
-                <label for="lastName">Nom</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Nom" required>
+                <label for="lastName">Nom *</label>
+                <input type="text" pattern="^[a-z ,.'-]+$" class="form-control" minlength="2" id="lastName" placeholder="Nom" required>
+                <span></span>
+              </div>
+              <div class="form-group ">
+                <label for="address">Adresse *</label>
+                <input type="text" pattern="^[a-zA-Z0-9 ,.'-]+$" minlength="5" class="form-control" id="address" placeholder="Adresse" required>
+                <span></span>
               </div>
               <div class="form-group">
-                <label for="address">Adresse</label>
-                <input type="text" class="form-control" id="address" placeholder="Adresse" required>
+                <label for="city">Ville *</label>
+                <input type="text" pattern="^[a-z ,.'-]+$" class="form-control" minlength="2" id="city" placeholder="Ville" required>
+                <span></span>
               </div>
               <div class="form-group">
-                <label for="city">Ville</label>
-                <input type="text" class="form-control" id="city" placeholder="Ville" required>
-              </div>
-              <div class="form-group">
-                <label for="mail">Adresse mail</label>
-                <input type="email" class="form-control" id="mail" placeholder="Email" required>
+                <label for="mail">Adresse mail *</label>
+                <input type="email" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$" class="form-control" id="mail" placeholder="Email" required title="xxxxxxx@yyyyyy.zz">
+                 <span></span>
               </div>
               <button class="btn btn-primary btn-block mt-5 btn-lg" id="confirmation-button">Passer commande</button>
             </form>
