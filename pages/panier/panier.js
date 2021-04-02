@@ -1,107 +1,54 @@
 window.onload = () => {
-  //Fonction qui fait apparaitre dans le panier les articles contenus dans local storage
   const showCartItems = () => {
-    let productList = JSON.parse(localStorage.getItem("teddy"));
+    //Fonction qui fait apparaitre dans le panier les articles contenus dans local storage
+    let productList = JSON.parse(localStorage.getItem("selectedItems"));
     if (productList === null) {
-      let errormessage = document.getElementById("error-message-panier");
+      const errormessage = document.getElementById("error-message-panier");
       errormessage.classList.add("alert");
       errormessage.innerHTML = "Votre panier est vide";
     } else {
       for (let index in productList) {
-        let item = productList[index];
+        const item = productList[index];
         const productLine = document.createElement("div");
-
         const productLineContainer = document.getElementById(
           "products-container"
         );
         productLineContainer.appendChild(productLine);
         productLine.classList.add("row", "bg-white", "my-3");
-
-        const productCol1 = document.createElement("div");
-        productCol1.classList.add("col-6", "col-md-3", "pl-0");
-        productLine.appendChild(productCol1);
-
-        const productCard = document.createElement("div");
-        productCard.classList.add("card");
-        productCol1.appendChild(productCard);
-
-        const teddyImage = document.createElement("img");
-        teddyImage.classList.add("card-image-top");
-        productCard.appendChild(teddyImage);
-        teddyImage.setAttribute("src", item.imageUrl);
-
-        const productCol2 = document.createElement("div");
-        productCol2.classList.add("col-6", "col-md-4", "my-auto");
-        productLine.appendChild(productCol2);
-
-        const productName = document.createElement("h2");
-        productName.classList.add("card-title");
-        productCol2.appendChild(productName);
-        productName.innerHTML = item.name;
-
-        const productColor = document.createElement("p");
-        productColor.classList.add("card-text", "color");
-        productCol2.appendChild(productColor);
-        productColor.innerHTML = item.chosenColor;
-
-        const productQuantity = document.createElement("p");
-        productQuantity.classList.add("card-text", "quantity");
-        productCol2.appendChild(productQuantity);
-        productQuantity.innerHTML = item.chosenQuantity;
-
-        const productCol3 = document.createElement("div");
-        productCol3.classList.add(
-          "col-6",
-          "col-md-4",
-          "my-2",
-          "my-md-auto",
-          "pl-0"
-        );
-        productLine.appendChild(productCol3);
-
-        const productPrice = document.createElement("p");
-        productPrice.classList.add(
-          "align-middle",
-          "text-right",
-          "mr-2",
-          "unity-price"
-        );
-        productCol3.appendChild(productPrice);
-        productPrice.innerHTML = item.price;
-
-        const productTotalPrice = document.createElement("p");
-        productTotalPrice.classList.add(
-          "align-middle",
-          "text-right",
-          "mr-2",
-          "total-price"
-        );
-        productCol3.appendChild(productTotalPrice);
-        let quantityTimesPrice = () => {
+        const quantityTimesPrice = () => {
           let totalPrice;
           totalPrice = item.price * item.chosenQuantity;
           return totalPrice;
         };
-        productTotalPrice.innerHTML = quantityTimesPrice();
-
-        const deleteButton = document.createElement("input");
-        deleteButton.classList.add("remove-item", "btn-primary");
-        deleteButton.type = "button";
-        deleteButton.value = "X";
+        productLine.innerHTML = ` <div class="col-6 col-md-3 pl-0">
+            <div class="card">
+              <img class="card-image-top" src="${item.imageUrl}"></img>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 my-auto">
+            <h2 class="card-title">${item.name}</h2>
+            <p class="card-text color">${item.chosenColor}</p>
+            <p class="card-text quantity">${item.chosenQuantity}</p>
+          </div>
+          <div class="col-6 col-md-4 my-2 my-md-auto pl-0">
+            <p class="align-middle text-right mr-2 unity-price">${
+              item.price
+            }</p>
+            <p class="align-middle text-right mr-2 total-price">${quantityTimesPrice()}</p>
+          </div>
+          <div class="col-6 col-md-1 my-auto">
+            <input class="remove-item btn-primary" type="button" value="X" id="delete-button--${index}"></input>
+          </div>`;
+        const deleteButton = document.getElementById("delete-button--" + index);
         deleteButton.onclick = () => deleteItem(index);
-
-        const productCol4 = document.createElement("div");
-        productCol4.classList.add("col-6", "col-md-1", "my-auto");
-        productLine.appendChild(productCol4);
-        productCol4.appendChild(deleteButton);
       }
       showTotalPrice();
     }
   };
 
-  //Calcul du prix total
   const totalPriceCalculation = () => {
-    let productList = JSON.parse(localStorage.getItem("teddy"));
+    //Fonction qui calcule le prix total
+    const productList = JSON.parse(localStorage.getItem("selectedItems"));
     let totalPrice = 0;
     for (let item of productList) {
       let totalItemPrice = item.price * item.chosenQuantity;
@@ -110,12 +57,11 @@ window.onload = () => {
     return totalPrice;
   };
 
-  //Affichage du prix total dans le panier
   const showTotalPrice = () => {
+    //Affichage du prix total dans le panier
     const totalPriceContainer = document.getElementById("total-price");
     totalPriceContainer.innerHTML = totalPriceCalculation();
   };
-
   showCartItems();
 
   // Construction de l'objet contact a envoyer au serveur
@@ -125,31 +71,31 @@ window.onload = () => {
   let ville;
   let mail;
 
-  let nameContainer = document.getElementById("lastName");
+  const nameContainer = document.getElementById("lastName");
   nameContainer.addEventListener("change", function (event) {
     nom = event.target;
     nomValue = event.target.value;
   });
 
-  let firstNameContainer = document.getElementById("firstName");
+  const firstNameContainer = document.getElementById("firstName");
   firstNameContainer.addEventListener("change", function (event) {
     prenom = event.target;
     prenomValue = event.target.value;
   });
 
-  let addressContainer = document.getElementById("address");
+  const addressContainer = document.getElementById("address");
   addressContainer.addEventListener("change", function (event) {
     adresse = event.target;
     adresseValue = event.target.value;
   });
 
-  let cityContainer = document.getElementById("city");
+  const cityContainer = document.getElementById("city");
   cityContainer.addEventListener("change", function (event) {
     ville = event.target;
     villeValue = event.target.value;
   });
 
-  let mailContainer = document.getElementById("mail");
+  const mailContainer = document.getElementById("mail");
   mailContainer.addEventListener("input", function (event) {
     mail = event.target;
     mailValue = event.target.value;
@@ -158,11 +104,11 @@ window.onload = () => {
   // Fonction qui construit l'objet contact si le formulaire est bien rempli
   const getContactInfo = () => {
     if (
-      prenom.checkValidity() === true &&
-      nom.checkValidity() === true &&
-      adresse.checkValidity() === true &&
-      ville.checkValidity() === true &&
-      mail.checkValidity() === true
+      prenom.checkValidity() &&
+      nom.checkValidity() &&
+      adresse.checkValidity() &&
+      ville.checkValidity() &&
+      mail.checkValidity()
     ) {
       const contactInfo = {
         firstName: prenomValue,
@@ -178,17 +124,17 @@ window.onload = () => {
     }
   };
 
-  // Cache le formulaire si le panier est vide, construit la liste produit à envoyer au serveur si le panier est rempli
   const getProductList = () => {
-    let productList = JSON.parse(localStorage.getItem("teddy"));
+    // Cache le formulaire si le panier est vide, construit la liste produit à envoyer au serveur si le panier est rempli
+    const productList = JSON.parse(localStorage.getItem("selectedItems"));
     let products = [];
     if (productList === null || productList.length === 0) {
-      let formContainer = document.getElementById("form-container");
+      const formContainer = document.getElementById("form-container");
       formContainer.classList.add("invisible");
       return false;
     } else {
       for (let item of productList) {
-        let numberOfIteration = item.chosenQuantity;
+        const numberOfIteration = item.chosenQuantity;
         for (let i = 0; i < numberOfIteration; i++) {
           products.push(item._id);
         }
@@ -198,21 +144,20 @@ window.onload = () => {
   };
   getProductList();
 
-  // Suppression d'un produit du panier
   const deleteItem = (productIndex) => {
-    const existing = localStorage.getItem("teddy");
+    // Suppression d'un produit du panier
+    const existing = localStorage.getItem("selectedItems");
     if (existing) {
-      let teddies = JSON.parse(existing);
-      teddies.splice(productIndex, 1);
-      localStorage.setItem("teddy", JSON.stringify(teddies));
+      const productsInCart = JSON.parse(existing);
+      productsInCart.splice(productIndex, 1);
+      localStorage.setItem("selectedItems", JSON.stringify(productsInCart));
       window.location.reload();
     }
   };
-
-  // Envoyer les donnees au serveur avec Promise
   const confirmationButton = document.getElementById("confirmation-button");
 
   const sendOrderToServer = (e) => {
+    // Envoyer les donnees au serveur
     const formContainer = document.getElementById("form-container");
     formContainer.reportValidity();
     e.preventDefault();

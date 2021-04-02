@@ -1,112 +1,115 @@
 window.onload = () => {
-  // Recuperer l'ID du teddy dans l'URL
-  const getUrl = () => {
+  const getIdFromUrl = () => {
+    // Recuperer l'ID du produit dans l'URL
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const product_id = urlParams.get("_id");
     return product_id;
   };
 
-  // Promise qui récupère les données API du teddy et lance la fonction showTeddyDetail si tout se passe bien
-  let teddy;
-  let product_id = getUrl();
-  const getTeddy = fetch("http://localhost:3000/api/teddies/" + product_id, {
-    method: "GET",
-  })
+  // Promise qui récupère les données API du produit et lance la fonction showProductDetail si tout se passe bien
+  let productInfoFromApi;
+  let product_id = getIdFromUrl();
+  const getProductAttributeList = fetch(
+    "http://localhost:3000/api/teddies/" + product_id,
+    {
+      method: "GET",
+    }
+  )
     .then((response) => {
       return response.json();
     })
     .then((element) => {
-      teddy = element;
-      showTeddyDetail(teddy);
+      productAttributeList = element;
+      showProductDetail(productAttributeList);
       const colorList = document.getElementsByTagName("option");
       const firstColor = colorList[0].innerHTML;
-      teddy.chosenColor = firstColor;
-      teddy.chosenQuantity = 1;
-      return teddy;
+      productAttributeList.chosenColor = firstColor;
+      productAttributeList.chosenQuantity = 1;
+      return productAttributeList;
     })
     .catch((error) => alert("Erreur: " + error));
 
-  // Afficher le détail du produit sur la page product.html
-  const showTeddyDetail = (teddy) => {
-    const teddyName = document.getElementById("teddy-name2");
-    teddyName.innerHTML = teddy.name;
+  const showProductDetail = (productAttributeList) => {
+    // Afficher le détail du produit sur la page product.html
+    const productName = document.getElementById("product-name");
+    productName.innerHTML = productAttributeList.name;
 
-    const teddyPicContainer = document.getElementById("teddypic-container");
-    teddyPicContainer.setAttribute("src", teddy.imageUrl);
+    const productPicContainer = document.getElementById("productpic-container");
+    productPicContainer.setAttribute("src", productAttributeList.imageUrl);
 
-    const teddyDetails = document.getElementById("teddyDetails");
-    teddyDetails.innerHTML = teddy.description;
+    const productDescription = document.getElementById("product-description");
+    productDescription.innerHTML = productAttributeList.description;
 
-    const teddyPrice2 = document.getElementById("teddy-price");
-    teddyPrice2.innerHTML = teddy.price;
-    teddyPrice2.classList.add("price");
+    const productPrice = document.getElementById("product-price");
+    productPrice.innerHTML = productAttributeList.price;
+    productPrice.classList.add("price");
 
-    getColorList(teddy);
-    getQuantity(teddy);
+    getColorList(productAttributeList);
+    getQuantity(productAttributeList);
   };
 
-  // Fonction qui recupere la liste des couleur disponible pour ce teddy et les affiche dans une liste deroulante
-  const getColorList = (teddy) => {
-    const teddyColor = document.getElementById("teddy-color");
-    const colors = teddy.colors;
+  const getColorList = (productAttributeList) => {
+    // Fonction qui recupere la liste des options disponible pour ce produit et les affiche dans une liste deroulante
+    const productColor = document.getElementById("product-color");
+    const colors = productAttributeList.colors;
     colors.forEach((color) => {
       const option = document.createElement("option");
-      teddyColor.appendChild(option);
+      productColor.appendChild(option);
       option.innerHTML = color;
     });
-    getChosenColor(teddy);
+    getChosenColor(productAttributeList);
   };
 
-  // Fonction qui recupere la couleur choisie dans le menu deroulant et qui l'ajoute a l'objet teddy
-  const getChosenColor = (teddy) => {
-    const teddyColor = document.getElementById("teddy-color");
-    teddyColor.addEventListener("change", (event) => {
+  const getChosenColor = (productAttributeList) => {
+    // Fonction qui recupere la couleur choisie dans le menu deroulant et qui l'ajoute a l'objet produit en tant qu'attribut
+    const productColor = document.getElementById("product-color");
+    productColor.addEventListener("change", (event) => {
       const clickedColor = event.target.value;
-      teddy.chosenColor = clickedColor;
-      return teddy;
+      productAttributeList.chosenColor = clickedColor;
+      return productAttributeList;
     });
   };
 
-  //Recuperer la quantité
-  const getQuantity = (teddy) => {
+  const getQuantity = (productAttributeList) => {
+    //Recuperer la quantité choisie par l'utilisateur
     const quantity = document.getElementById("quantity");
     quantity.addEventListener("change", (event) => {
-      let chosenQuantity = parseInt(event.target.value);
-      teddy.chosenQuantity = chosenQuantity;
+      const chosenQuantity = parseInt(event.target.value);
+      productAttributeList.chosenQuantity = chosenQuantity;
       return chosenQuantity;
     });
   };
 
-  // Fonction qui ajoute le teddy au panier
-  const addTeddyToCart = () => {
-    const existing = localStorage.getItem("teddy");
-    let teddies;
+  const addProductToCart = () => {
+    // Fonction qui ajoute le produit au panier
+    const existing = localStorage.getItem("selectedItems");
+    let productArray;
     if (existing) {
-      teddies = JSON.parse(existing);
+      productArray = JSON.parse(existing);
     } else {
-      teddies = [];
+      productArray = [];
     }
     let alreadyInCart = false;
-    teddies.forEach((element) => {
+    productArray.forEach((element) => {
       if (
-        teddy.product_id === element.product_id &&
-        teddy.chosenColor === element.chosenColor
+        productAttributeList._id === element._id &&
+        productAttributeList.chosenColor === element.chosenColor
       ) {
-        element.chosenQuantity += teddy.chosenQuantity;
+        element.chosenQuantity += productAttributeList.chosenQuantity;
         alreadyInCart = true;
       }
     });
     if (!alreadyInCart) {
-      teddies.push(teddy);
+      productArray.push(productAttributeList);
     }
-    localStorage.setItem("teddy", JSON.stringify(teddies));
+    localStorage.setItem("selectedItems", JSON.stringify(productArray));
     showSuccessMessage();
     showCartItemNumber();
   };
 
-  // Fonction qui fait apparaitre un message de succes lors de l'ajout au panier
   const showSuccessMessage = () => {
+    // Fonction qui fait apparaitre un message de succes lors de l'ajout au panier
     const successAlert = document.getElementById("alert-success");
     successAlert.innerHTML =
       "Félicitations ! Vous avez ajouté cet article à votre panier !";
@@ -114,10 +117,10 @@ window.onload = () => {
   };
 
   const addToCartButton = document.getElementById("add-cart");
-  addToCartButton.onclick = addTeddyToCart;
+  addToCartButton.onclick = addProductToCart;
 
-  // Calcul du nombre de produits dans le panier
   const calcutateNumberOfItemsInCart = (productList) => {
+    // Fonction qui calcule le nombre de produits dans le panier
     let itemNumber = 0;
     if (productList !== null) {
       productList.forEach((element) => {
@@ -127,9 +130,9 @@ window.onload = () => {
     return itemNumber;
   };
 
-  // Fonction qui fait apparaitre le nombre d'articles dans le panier
   const showCartItemNumber = () => {
-    const productList = JSON.parse(localStorage.getItem("teddy"));
+    // Fonction qui fait apparaitre le nombre d'articles dans le panier
+    const productList = JSON.parse(localStorage.getItem("selectedItems"));
     const numberOfItem = calcutateNumberOfItemsInCart(productList);
     const numberOfItemContainer = document.getElementById("cart-length");
     numberOfItemContainer.innerHTML = numberOfItem;
