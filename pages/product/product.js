@@ -111,7 +111,6 @@ window.onload = () => {
     successAlert.innerHTML =
       "Félicitations ! Vous avez ajouté cet article à votre panier !";
     successAlert.classList.add("alert", "alert-success", "mt-3");
-    addToCartButton.remove();
   };
 
   const addToCartButton = document.getElementById("add-cart");

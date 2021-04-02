@@ -41,6 +41,10 @@ h1 {
   margin: 2em;
 }
 
+.img-responsive {
+  object-fit: cover;
+}
+
 .price{
   color: $primary;
   font-family: 'roboto';
@@ -60,9 +64,7 @@ h1 {
  }
 }
 
-.prix-total{
-  font-size: 1.5em;
-}
+
 
 .total-price {
   font-family: 'roboto';
@@ -111,7 +113,6 @@ input:valid + span::before {
   cursor: pointer;
 }
 
-
 .cart-length {
   background-color: white;
   border-radius: 50%;
@@ -133,7 +134,7 @@ input:valid + span::before {
   font-family: 'roboto';
  color: $primary;
 &::before {
- content: 'Couleur choisie :  ';
+ content: 'Couleur :  ';
  color: black;
  font-family: 'roboto-light';
 }

@@ -18,7 +18,7 @@ window.onload = () => {
         productLine.classList.add("row", "bg-white", "my-3");
 
         const productCol1 = document.createElement("div");
-        productCol1.classList.add("col-4", "pl-0");
+        productCol1.classList.add("col-6", "col-md-3", "pl-0");
         productLine.appendChild(productCol1);
 
         const productCard = document.createElement("div");
@@ -31,7 +31,7 @@ window.onload = () => {
         teddyImage.setAttribute("src", item.imageUrl);
 
         const productCol2 = document.createElement("div");
-        productCol2.classList.add("col-4", "my-auto");
+        productCol2.classList.add("col-6", "col-md-4", "my-auto");
         productLine.appendChild(productCol2);
 
         const productName = document.createElement("h2");
@@ -50,13 +50,18 @@ window.onload = () => {
         productQuantity.innerHTML = item.chosenQuantity;
 
         const productCol3 = document.createElement("div");
-        productCol3.classList.add("col-3", "my-auto");
+        productCol3.classList.add(
+          "col-6",
+          "col-md-4",
+          "my-2",
+          "my-md-auto",
+          "pl-0"
+        );
         productLine.appendChild(productCol3);
 
         const productPrice = document.createElement("p");
         productPrice.classList.add(
           "align-middle",
-
           "text-right",
           "mr-2",
           "unity-price"
@@ -67,7 +72,6 @@ window.onload = () => {
         const productTotalPrice = document.createElement("p");
         productTotalPrice.classList.add(
           "align-middle",
-
           "text-right",
           "mr-2",
           "total-price"
@@ -87,7 +91,7 @@ window.onload = () => {
         deleteButton.onclick = () => deleteItem(index);
 
         const productCol4 = document.createElement("div");
-        productCol4.classList.add("col-1", "my-auto");
+        productCol4.classList.add("col-6", "col-md-1", "my-auto");
         productLine.appendChild(productCol4);
         productCol4.appendChild(deleteButton);
       }
@@ -189,6 +193,7 @@ window.onload = () => {
           products.push(item._id);
         }
       }
+      return products;
     }
   };
   getProductList();

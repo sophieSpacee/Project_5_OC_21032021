@@ -54,16 +54,23 @@ window.onload = () => {
     teddyPrice.classList.add("card-text", "price", "text-right");
   };
 
+  // Calcul du nombre de produits dans le panier
+  const calcutateNumberOfItemsInCart = (productList) => {
+    let itemNumber = 0;
+    if (productList !== null) {
+      productList.forEach((element) => {
+        itemNumber += element.chosenQuantity;
+      });
+    }
+    return itemNumber;
+  };
+
   // Fonction qui fait apparaitre le nombre d'articles dans le panier
   const showCartItemNumber = () => {
     const productList = JSON.parse(localStorage.getItem("teddy"));
-    let numberOfItem = 0;
-    if (productList !== null) {
-      numberOfItem = productList.length;
-    }
+    const numberOfItem = calcutateNumberOfItemsInCart(productList);
     const numberOfItemContainer = document.getElementById("cart-length");
     numberOfItemContainer.innerHTML = numberOfItem;
   };
-
   showCartItemNumber();
 };
