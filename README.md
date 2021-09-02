@@ -6,7 +6,8 @@ This project is part of my course to become a full stack developer. I was provid
 
 ## Project walkthrough:
 
-For this project, I used API calls to get products images and information from a database and I displayed it on a website I created. 
+For this project, I used API calls to get products images and information from a database and I displayed it on a website I created.   
+  
 ![website](/images/readme/1.png).   
   
   Users can click on a product to get more information about it.  
